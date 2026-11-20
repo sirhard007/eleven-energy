@@ -600,6 +600,7 @@ img { display: block; max-width: 100%; }
 .fs-head h2 { margin: 18px 0 0; font-size: clamp(40px, 4.6vw, 64px); line-height: 1; font-weight: 500; letter-spacing: -0.05em; }
 .fs-side { display: flex; align-items: flex-end; gap: 32px; }
 .fs-side p { margin: 0; max-width: 300px; font-size: 15px; line-height: 1.6; color: #5A6660; }
+.fs-all { display: inline-block; margin-top: 16px; color: #10231A; font-size: 15px; text-decoration: underline; text-underline-offset: 4px; }
 .fs-arrows { display: flex; gap: 8px; }
 .fs-step { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: #10231A; box-shadow: inset 0 0 0 1px rgba(187, 199, 186, 0.5); transition: background .25s, color .25s, box-shadow .25s, opacity .25s; }
 .fs-step:hover { background: #10231A; color: #fff; box-shadow: none; }
@@ -890,6 +891,21 @@ img { display: block; max-width: 100%; }
 .ab-sector-go { position: absolute; right: 2px; bottom: 4px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: #10231A; box-shadow: inset 0 0 0 1px rgba(170, 184, 176, 0.5); transition: background .3s, transform .4s var(--ease); }
 .ab-sector:hover .ab-sector-go { background: var(--volt); box-shadow: none; transform: rotate(45deg); }
 
+.ab-charging {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 6vw, 88px);
+  margin-top: clamp(56px, 9vw, 128px);
+}
+.ab-charging > img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px; }
+.ab-charging-copy { max-width: 42ch; }
+.ab-charging-copy h2 { margin: 0; font-size: clamp(32px, 4vw, 54px); line-height: 1.05; font-weight: 500; letter-spacing: -.045em; }
+.ab-charging-copy p { margin: 20px 0 24px; color: #4B5651; line-height: 1.65; }
+@media (max-width: 760px) {
+  .ab-charging { grid-template-columns: 1fr; }
+}
+
 /* shared closing call to action */
 .pg-cta { padding: 150px 0 130px; }
 .pg-cta-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 64px; align-items: end; padding-top: 36px; border-top: 1px solid rgba(187, 199, 186, 0.5); }
@@ -921,7 +937,7 @@ img { display: block; max-width: 100%; }
 .sx-row:focus-visible { outline: 2px solid #10231A; outline-offset: 4px; border-radius: 12px; }
 
 .svc-wrap { padding-top: 150px; }
-.svc { scroll-margin-top: 110px; }
+.svc, .svc-top[id], .ab-intro[id] { scroll-margin-top: 110px; }
 .svc + .svc { margin-top: 170px; }
 .svc-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: end; }
 .svc-n { display: flex; align-items: baseline; gap: 6px; margin: 0; font-size: 14px; font-weight: 500; color: #10231A; font-variant-numeric: tabular-nums; }
@@ -1081,6 +1097,8 @@ img { display: block; max-width: 100%; }
 .footer-nav h3 { margin: 0 0 5px; font-size: 12px; color: #93A786; font-weight: 500; }
 .footer-nav a, .footer-nav button { color: #D5E1CC; font-size: 13px; text-align: left; transition: color .2s; }
 .footer-nav a:hover, .footer-nav button:hover { color: var(--volt); }
+.ab-footer-project p { margin: 0; color: #94A68B; font-size: 13px; line-height: 1.5; }
+.ab-footer-project button { text-decoration: underline; text-underline-offset: 4px; }
 .footer-solutions > div { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
 .footer-return { justify-self: end; }
 .footer-return > a { display: flex; align-items: center; gap: 16px; color: #D5E1CC; font-size: 12px; }
@@ -1107,7 +1125,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* ───────── Mobile sheet ───────── */
-.sheet { position: fixed; inset: 0; z-index: 45; display: flex; flex-direction: column; gap: 28px; padding: 18px 16px 24px; background: var(--night-2); }
+.sheet { position: fixed; inset: 0; z-index: 45; display: flex; flex-direction: column; gap: 28px; padding: 18px 16px 24px; background: var(--night-2); overflow-y: auto; }
 .sheet[hidden] { display: none; }
 .sheet-head { display: flex; justify-content: space-between; align-items: center; }
 .sheet-nav { display: grid; }
