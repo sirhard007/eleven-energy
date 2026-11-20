@@ -82,7 +82,7 @@
   </section>
   <main class="page">
 
-    <section class="ab-intro" aria-labelledby="abIntroTitle">
+    <section class="ab-intro" id="overview" aria-labelledby="abIntroTitle">
       <div class="wrap">
         <div class="ab-intro-grid">
           <p class="purpose-eyebrow rise"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Company overview</p>
@@ -142,6 +142,15 @@
       </div>
     </section>
 
+    <section class="wrap ab-charging" aria-labelledby="charging-title">
+      <img src="assets/render-ev.jpg" alt="Eleven Energy electric vehicle charging pedestal" width="640" height="640" loading="lazy">
+      <div class="ab-charging-copy">
+        <h2 id="charging-title">EV charging that fits the site.</h2>
+        <p>We design charging for homes, workplaces, fleets and public spaces. Our systems include Level 2 stations, DC fast chargers and smart network management.</p>
+        <a class="btn-line" href="solutions.html#ev">Explore EV charging</a>
+      </div>
+    </section>
+
     <section class="pg-cta" aria-labelledby="abCtaTitle">
       <div class="wrap pg-cta-grid">
         <h2 id="abCtaTitle">For businesses ready to cut their carbon footprint <span>and their energy bill.</span></h2>
@@ -161,9 +170,14 @@
     <footer class="site-footer" aria-label="Site footer">
       <div class="footer-main">
         <div class="footer-brand"><a href="index.html" aria-label="Eleven Energy home"><img src="assets/eleven-energy-logo.svg" width="183" height="46" alt="Eleven Energy" loading="lazy"></a><p>Better energy.<br>More possibility, across Africa.</p></div>
-        <nav class="footer-nav" aria-label="Company"><h3>Eleven Energy</h3><a href="index.html">Home</a><a href="index.html#commitment">Our purpose</a><a href="about.html">About us</a><a href="solutions.html">Solutions</a><button type="button" data-open-modal="contact">Contact us</button></nav>
+        <nav class="footer-nav" aria-label="Company"><h3>Eleven Energy</h3><a href="index.html">Home</a><a href="#overview">Our story</a><a href="index.html#commitment">Our purpose</a><a href="solutions.html">Solutions</a></nav>
         <nav class="footer-nav footer-solutions" aria-label="Energy solutions"><h3>Find your solution</h3><div><a href="solutions.html#microgrids">Microgrids</a><a href="solutions.html#storage">Energy storage</a><a href="solutions.html#audits">Energy audits</a><a href="solutions.html#home">Home solar</a><a href="solutions.html#sme">SME energy</a><a href="solutions.html#ev">EV charging</a></div></nav>
-        <div class="footer-return"><a href="#top"><span>Back to the beginning</span><span class="footer-return-icon" aria-hidden="true"><svg class="ico"><use href="#i-sun"/></svg></span></a><p>Good energy. From here on.</p></div>
+        <div class="footer-nav ab-footer-project">
+          <h3>Planning an energy project?</h3>
+          <p>Tell us what you need to power.</p>
+          <button type="button" data-open-modal="contact">Contact Eleven Energy</button>
+          <a href="#top">Back to top</a>
+        </div>
       </div>
       <div class="footer-bottom"><p>© <span id="copyrightYear">2026</span> Eleven Energy. All rights reserved.</p><span>Sustainable energy solutions, across Africa.</span></div>
     </footer>
