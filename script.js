@@ -19,12 +19,14 @@
     heroImg.src = "assets/placeholder-unit.jpg";
   };
   const inlineFallback = () => inlineImg.parentElement.classList.add("is-placeholder");
-  heroImg.addEventListener("error", usePlaceholder);
-  heroImg.addEventListener("load", layoutNodes);
-  inlineImg.addEventListener("error", inlineFallback);
-  // the script runs after the images started loading, so catch failures that already happened
-  if (heroImg.complete && !heroImg.naturalWidth) usePlaceholder();
-  if (inlineImg.complete && !inlineImg.naturalWidth) inlineFallback();
+  if (heroImg) {
+    heroImg.addEventListener("error", usePlaceholder);
+    heroImg.addEventListener("load", layoutNodes);
+    inlineImg.addEventListener("error", inlineFallback);
+    // the script runs after the images started loading, so catch failures that already happened
+    if (heroImg.complete && !heroImg.naturalWidth) usePlaceholder();
+    if (inlineImg.complete && !inlineImg.naturalWidth) inlineFallback();
+  }
 
   /* ── Map a point on the image (0–1) to a point in the hero, honouring object-fit: cover ── */
   function imagePoint(fx, fy) {
@@ -44,6 +46,7 @@
         and its base (and the charger) stays in view. Anchors live on #heroArt:
         data-top = highest point of the product, data-base = where it meets the ground. ── */
   function fitArt() {
+    if (!heroImg) return;
     const nw = heroImg.naturalWidth, nh = heroImg.naturalHeight;
     if (!nw) return;
     if (window.innerWidth <= 900) { heroImg.style.objectPosition = ""; return; }
@@ -62,7 +65,7 @@
   }
 
   function layoutNodes() {
-    if (!heroImg.naturalWidth) return;
+    if (!heroImg || !heroImg.naturalWidth) return;
     fitArt();
     const W = hero.clientWidth, H = hero.clientHeight;
     linesSvg.setAttribute("viewBox", `0 0 ${W} ${H}`);
@@ -147,7 +150,7 @@
   window.addEventListener("resize", () => { cancelAnimationFrame(rT); rT = requestAnimationFrame(layoutNodes); });
 
   /* ── Calibration: open with ?calibrate, click the image to read a point ── */
-  if (new URLSearchParams(location.search).has("calibrate")) {
+  if (hero && new URLSearchParams(location.search).has("calibrate")) {
     const panel = $("#calibrate"), out = $("#calibrateOut");
     panel.hidden = false;
     hero.classList.add("is-calibrating");
@@ -161,11 +164,7 @@
     });
   }
 
-  /* ── Solutions menu ── */
-  const solBtn = $("#solutionsBtn"), solMenu = $("#solutionsMenu");
-  const setMenu = open => { solMenu.hidden = !open; solBtn.setAttribute("aria-expanded", open); requestAnimationFrame(restLens); };
-  solBtn.addEventListener("click", e => { e.stopPropagation(); setMenu(solMenu.hidden); });
-  document.addEventListener("click", e => { if (!e.target.closest(".nav-drop")) setMenu(false); });
+  const setMenu = () => {};   // the nav has no dropdown any more
 
   /* ── Drawer content ── */
   const icon = id => `<svg class="ico"><use href="#i-${id}"/></svg>`;
@@ -274,53 +273,28 @@
   $("#drawerCta").addEventListener("click", () => { closeDrawer(); openModal("audit", currentInterest); });
   scrim.addEventListener("click", closeDrawer);
 
-  /* ── Modal ── */
-  const modal = $("#modal"), form = $("#auditForm");
-  const MODES = {
-    audit: { title: "Book an energy audit", sub: "An engineer visits your site, logs your loads for a week and shows you what a system would save before you commit to anything.", submit: "Request my site audit", note: "We reply within two working days." },
-    contact: { title: "Talk to an energy engineer", sub: "Tell us about the site and what keeps failing. An engineer, not a sales rep, will call you back.", submit: "Ask for a call back", note: "Calls go out Monday to Friday, 8am to 6pm WAT." }
-  };
-  let mode = "audit";
-
-  function openModal(m = "audit", interest = "") {
-    mode = m; const c = MODES[m];
-    closeSheet(); closeDrawer(); setMenu(false);
-    $("#modalTitle").textContent = interest && m === "audit" ? `Book an audit: ${interest}` : c.title;
-    $("#modalSub").textContent = c.sub;
-    $("#submitLabel").textContent = c.submit;
-    $("#modalNote").textContent = c.note;
-    $("#interestField").value = interest;
-    $("#modalDone").hidden = true;
+  /* ── Contact modal: the sentence form, opened from any contact or audit button ── */
+  const modal = $("#talkModal");
+  const tform = modal && $(".talk-form", modal);
+  function openModal(m = "contact", interest = "") {
+    if (!modal) return;
+    closeSheet(); closeDrawer();
+    tform.talk.restart(m === "audit" ? "audit" : "project");
+    const about = $(".tm-about", modal);
+    about.hidden = !interest; $("b", about).textContent = interest; tform.elements.interest.value = interest;
     lastFocus = document.activeElement;
     modal.classList.add("is-open"); modal.setAttribute("aria-hidden", "false");
-    setTimeout(() => form.elements.name.focus(), 60);
+    document.body.style.overflow = "hidden";
+    tform.talk.fit();
+    setTimeout(() => tform.elements.name.focus({ preventScroll: true }), 120);
   }
   function closeModal() {
-    if (!modal.classList.contains("is-open")) return;
+    if (!modal || !modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open"); modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
     lastFocus?.focus?.();
   }
-  modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    let ok = true;
-    ["name", "loc"].forEach(n => {
-      const f = form.elements[n], wrap = f.closest(".field");
-      const bad = !f.value.trim(); wrap.classList.toggle("is-error", bad); if (bad && ok) { f.focus(); ok = false; }
-    });
-    if (!ok) return;
-    const first = form.elements.name.value.trim().split(/\s+/)[0];
-    const loc = form.elements.loc.value.trim();
-    const siteLabel = form.querySelector('input[name="site"]:checked + span').textContent.toLowerCase();
-    $("#doneTitle").textContent = mode === "audit" ? `Thanks, ${first}. Your audit request is in.` : `Thanks, ${first}. We'll call you back.`;
-    $("#doneText").textContent = mode === "audit"
-      ? `An energy engineer will call within two working days to book a site visit in ${loc}. If you can, have a recent electricity bill and your generator fuel log handy.`
-      : `An engineer will call within one working day about your ${siteLabel} site in ${loc}.`;
-    $("#modalDone").hidden = false;
-    $("#modalDone [data-close]").focus();
-  });
-  form.addEventListener("input", e => e.target.closest(".field")?.classList.remove("is-error"));
+  modal?.addEventListener("click", e => { if (e.target === modal) closeModal(); });
 
   /* ── Mobile sheet ── */
   const sheet = $("#sheet"), burger = $("#burger");
@@ -332,19 +306,18 @@
     const d = e.target.closest("[data-open-drawer]");
     if (d) { e.preventDefault(); openDrawer(d.dataset.openDrawer); return; }
     const m = e.target.closest("[data-open-modal]");
-    if (m) { e.preventDefault(); openModal(m.dataset.openModal); return; }
+    if (m) { e.preventDefault(); openModal(m.dataset.openModal, m.dataset.interest || ""); return; }
     const c = e.target.closest("[data-close]");
     if (c) {
-      if (c.closest("#modal")) closeModal();
+      if (c.closest("#talkModal")) closeModal();
       else if (c.closest("#drawer")) closeDrawer();
       else closeSheet();
     }
   });
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
-    if (modal.classList.contains("is-open")) closeModal();
+    if (modal?.classList.contains("is-open")) closeModal();
     else if (drawer.classList.contains("is-open")) closeDrawer();
-    else if (!solMenu.hidden) { setMenu(false); solBtn.focus(); }
     else closeSheet();
   });
 
@@ -372,7 +345,8 @@
   const navEl = $("#nav");
   const onScroll = () => {
     navEl.classList.toggle("is-scrolled", window.scrollY > 24);
-    navEl.classList.toggle("is-light", hero.getBoundingClientRect().bottom < 200);
+    const top = hero || $(".ph");
+    navEl.classList.toggle("is-light", top ? top.getBoundingClientRect().bottom < 200 : true);
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -400,7 +374,7 @@
     return i;
   }
   const masked = (word, i) => { const o = document.createElement("span"); o.className = "w"; o.innerHTML = `<span style="--i:${i}">${word}</span>`; return o; };
-  splitWords($("#headline"), masked);
+  if ($("#headline")) splitWords($("#headline"), masked);
   $$(".words").forEach(el => splitWords(el, masked));
 
   // the about statement lights up word by word as it scrolls through the screen
@@ -428,6 +402,265 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("inview"); io.unobserve(e.target); } });
   }, { rootMargin: "0px 0px -12% 0px" }) : null;
   $$(".rise, .words").forEach(el => io && !still ? io.observe(el) : el.classList.add("inview"));
+
+  /* ── Solutions film strip: the arrows or a click on a closed slide open it;
+        the strip can be dragged, and each photo drifts a little against the movement ── */
+  const fsTrack = $(".fs-track");
+  if (fsTrack) {
+    const slides = $$(".fs-slide", fsTrack), steps = $$(".fs-step"), cursor = $(".fs-cursor", fsTrack);
+    const phone = window.matchMedia("(max-width: 760px)");
+    let cur = 0;
+
+    const edge = () => parseFloat(getComputedStyle($(".fs-rail", fsTrack)).paddingLeft) || 0;
+    function scrollToSlide(i, smooth) {
+      // where the slide will sit once the open one has finished resizing: every slide before it is closed
+      const gap = 14;
+      let left = 0;
+      if (phone.matches) left = slides[i].offsetLeft - edge();
+      else left = i * (parseFloat(getComputedStyle(slides[i === 0 ? 1 : 0]).width) + gap);
+      fsTrack.scrollTo({ left: Math.max(0, left), behavior: smooth && !still ? "smooth" : "auto" });
+    }
+    function show(i) {
+      cur = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach((s, k) => s.classList.toggle("is-active", k === cur));
+      steps[0].disabled = cur === 0; steps[1].disabled = cur === slides.length - 1;
+      scrollToSlide(cur, true);
+    }
+    steps.forEach(b => b.addEventListener("click", () => show(cur + +b.dataset.step, true)));
+    $$("[data-fs-open]", fsTrack).forEach(b => b.addEventListener("click", () => show(+b.dataset.fsOpen, true)));
+    fsTrack.addEventListener("keydown", e => {
+      const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (d) { e.preventDefault(); show(cur + d, true); }
+    });
+
+    // drag to scroll with the mouse; phones already swipe natively
+    let down = null, moved = 0;
+    fsTrack.addEventListener("pointerdown", e => {
+      if (e.pointerType !== "mouse" || e.button !== 0 || e.target.closest("button:not(.fs-open)")) return;
+      down = { x: e.clientX, left: fsTrack.scrollLeft }; moved = 0;
+    });
+    window.addEventListener("pointermove", e => {
+      if (!down) return;
+      const dx = e.clientX - down.x; moved = Math.max(moved, Math.abs(dx));
+      if (moved > 4) { fsTrack.classList.add("is-dragging"); fsTrack.scrollLeft = down.left - dx; }
+    });
+    window.addEventListener("pointerup", () => {
+      if (!down) return;
+      down = null;
+      if (fsTrack.classList.contains("is-dragging")) {
+        // settle on the slide nearest the left edge
+        const x = fsTrack.scrollLeft;
+        let best = 0, bestD = Infinity;
+        slides.forEach((s, k) => { const dd = Math.abs(s.offsetLeft - edge() - x); if (dd < bestD) { bestD = dd; best = k; } });
+        requestAnimationFrame(() => fsTrack.classList.remove("is-dragging"));
+        show(best, true);
+      }
+    });
+    fsTrack.addEventListener("click", e => { if (moved > 4) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
+
+    // the cursor bubble
+    if (cursor && window.matchMedia("(hover: hover)").matches) {
+      fsTrack.addEventListener("pointermove", e => {
+        const r = fsTrack.getBoundingClientRect();
+        cursor.style.setProperty("--cx", e.clientX - r.left + fsTrack.scrollLeft + "px");
+        cursor.style.setProperty("--cy", e.clientY - r.top + "px");
+        fsTrack.classList.add("show-cursor");
+        fsTrack.classList.toggle("over-button", !!e.target.closest("button:not(.fs-open)"));
+      });
+      fsTrack.addEventListener("pointerleave", () => fsTrack.classList.remove("show-cursor"));
+    }
+
+    // photos drift against the strip's movement
+    let pxQueued = false;
+    function drift() {
+      pxQueued = false;
+      const vw = window.innerWidth;
+      slides.forEach(s => {
+        const r = s.getBoundingClientRect();
+        const off = (r.left + r.width / 2 - vw / 2) / vw;
+        $("img", s).style.setProperty("--px", (Math.max(-1, Math.min(1, off)) * -36).toFixed(1) + "px");
+      });
+    }
+    if (!still) {
+      fsTrack.addEventListener("scroll", () => { if (!pxQueued) { pxQueued = true; requestAnimationFrame(drift); } }, { passive: true });
+      drift();
+    }
+    // phones: whichever slide is snapped becomes the current one
+    fsTrack.addEventListener("scroll", () => {
+      if (!phone.matches) return;
+      const x = fsTrack.scrollLeft;
+      let best = 0, bestD = Infinity;
+      slides.forEach((s, k) => { const dd = Math.abs(s.offsetLeft - edge() - x); if (dd < bestD) { bestD = dd; best = k; } });
+      if (best !== cur) { cur = best; slides.forEach((s, k) => s.classList.toggle("is-active", k === cur)); }
+    }, { passive: true });
+
+    steps[0].disabled = true;
+  }
+
+  /* ── Get in touch: a form written as a sentence; the topic rewrites the middle of it ── */
+  const esc = s => s.replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+  const v = el => esc(el.value.trim());
+  const TOPICS = {
+    project: { team: "Goes to an engineer", who: "An engineer, not a sales rep. They’ll reply within one working day.", btn: "Send to an engineer",
+      done: (n, how, f) => `Thanks, <b>${n}</b>. An engineer will ${how} within one working day to talk about your ${esc(f.p_site.value)} in <b>${v(f.p_loc)}</b>.` },
+    audit: { team: "Goes to our audit team", who: "We’ll call to agree a date, then an engineer logs your site for seven days.", btn: "Request an audit",
+      done: (n, how, f) => `Thanks, <b>${n}</b>. Our audit team will ${how} within two working days to book a visit to your ${esc(f.a_site.value)} in <b>${v(f.a_loc)}</b>.` },
+    support: { team: "Goes to the support desk", who: "Our support desk answers within four hours, 7am to 9pm, every day. If the site is down, call us instead.", btn: "Report the problem",
+      done: (n, how, f) => `Thanks, <b>${n}</b>. Support has logged the fault at <b>${v(f.s_site)}</b> and will ${how} within four hours.` },
+    partner: { team: "Goes to our partnerships lead", who: "Developers, NGOs, financiers and installers. Expect a reply within three working days.", btn: "Send to partnerships",
+      done: (n, how, f) => `Thanks, <b>${n}</b>. Our partnerships lead will ${how} within three working days about working with <b>${v(f.r_org)}</b>.` },
+    press: { team: "Goes to our press team", who: "Interviews, site visits and photos. We’ll work to your deadline.", btn: "Send to our press team",
+      done: (n, how, f) => `Thanks, <b>${n}</b>. Our press team will ${how}${f.m_when.value.trim() ? ` before <b>${v(f.m_when)}</b>` : " within one working day"}.` },
+    other: { team: "Goes to our Lagos office", who: "Someone who can actually answer will reply within one working day.", btn: "Send message",
+      done: (n, how) => `Thanks, <b>${n}</b>. We’ll ${how} within one working day.` }
+  };
+  // each blank is as wide as its words: the placeholder at first, then whatever is typed
+  const ruler = document.createElement("canvas").getContext("2d");
+  const textWidth = (el, s) => {
+    const cs = getComputedStyle(el);
+    ruler.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    if ("letterSpacing" in ruler) ruler.letterSpacing = cs.letterSpacing;
+    return ruler.measureText(s).width;
+  };
+  function initTalk(form) {
+    const host = form.closest(".talk-host"), f = form.elements;
+    const parts = $$(".talk-part", form), err = $(".talk-err", form), done = $(".talk-done", form);
+    const typed = '.blank input:not([type="hidden"])';
+    let topic = "project";
+    const fit = el => { el.style.width = Math.ceil(textWidth(el, el.value || el.placeholder) + 4) + "px"; };
+    const fitAll = () => $$(typed, form).forEach(el => { if (!el.closest("[hidden]")) fit(el); });
+    $$(typed, form).forEach(el => el.addEventListener("input", () => fit(el)));
+    (document.fonts?.ready || Promise.resolve()).then(fitAll);
+    window.addEventListener("resize", fitAll);
+
+    function setTopic(t) {
+      topic = t; const T = TOPICS[t];
+      parts.forEach(p => {
+        const on = p.dataset.topic === t;
+        p.hidden = !on; p.classList.toggle("is-in", on && !still);
+        $$("input, button", p).forEach(el => (el.disabled = !on));
+      });
+      $$(".blank.is-error", form).forEach(b => b.classList.remove("is-error"));
+      err.hidden = true;
+      $(".talk-submit", form).textContent = T.btn;
+      $$(".talk-who-team", host).forEach(e => (e.textContent = T.team));
+      $$(".talk-who-text", host).forEach(e => (e.textContent = T.who));
+      $$(".talk-who, .tm-who", host).forEach(w => { w.classList.remove("is-swapping"); void w.offsetWidth; w.classList.add("is-swapping"); });
+      fitAll();
+    }
+    function restart(t = topic) {
+      const interest = f.interest.value;
+      form.reset(); f.interest.value = interest;
+      $$("[data-pick]", form).forEach(p => p.resetPick());
+      $(`input[name="topic"][value="${t}"]`, form).checked = true;
+      form.classList.remove("is-sent"); done.hidden = true;
+      setTopic(t);
+    }
+    $$('input[name="topic"]', form).forEach(r => r.addEventListener("change", () => setTopic(r.value)));
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      let first = null;
+      $$("[data-req]", form).forEach(el => {
+        if (el.disabled) return;
+        const bad = !el.value.trim();
+        el.closest(".blank").classList.toggle("is-error", bad);
+        if (bad && !first) first = el;
+      });
+      err.hidden = !first;
+      if (first) { first.focus(); return; }
+      const name = esc(f.name.value.trim().split(/\s+/)[0]);
+      const reach = f.reach.value.trim();
+      const how = `${reach.includes("@") ? "email you at" : "call you on"} <b>${esc(reach)}</b>`;
+      $(".talk-done-text", form).innerHTML = TOPICS[topic].done(name, how, f);
+      form.classList.add("is-sent"); done.hidden = false;
+      $(".talk-again", form).focus();
+    });
+    form.addEventListener("input", e => {
+      e.target.closest(".blank")?.classList.remove("is-error");
+      if (!$(".blank.is-error", form)) err.hidden = true;
+    });
+    $(".talk-again", form).addEventListener("click", () => { restart(topic); f.name.focus(); });
+    form.talk = { restart, fit: fitAll };
+    setTopic("project");
+  }
+
+  /* ── Custom picker: a listbox that sits inside a sentence ── */
+  $$("[data-pick]").forEach(pk => {
+    const btn = $(".pick-btn", pk), list = $(".pick-list", pk), input = $('input[type="hidden"]', pk), val = $(".pick-val", pk);
+    const opts = $$(".pick-opt", pk), label = list.getAttribute("aria-label");
+    let active = 0;
+    const setActive = i => {
+      active = (i + opts.length) % opts.length;
+      opts.forEach((o, k) => o.classList.toggle("is-active", k === active));
+      list.setAttribute("aria-activedescendant", opts[active].id);
+      opts[active].scrollIntoView({ block: "nearest" });
+    };
+    const close = focusBtn => {
+      if (list.hidden) return;
+      list.hidden = true; pk.classList.remove("is-open"); btn.setAttribute("aria-expanded", "false");
+      if (focusBtn) btn.focus();
+    };
+    const open = () => {
+      $$("[data-pick].is-open").forEach(o => o !== pk && o.closePick());
+      list.hidden = false; pk.classList.add("is-open"); btn.setAttribute("aria-expanded", "true");
+      list.style.left = ""; list.classList.remove("is-up");
+      const r = list.getBoundingClientRect(), room = window.innerWidth - 12;
+      if (r.right > room) list.style.left = Math.round(room - r.right - 6) + "px";
+      if (r.bottom > window.innerHeight - 12 && btn.getBoundingClientRect().top > r.height + 24) list.classList.add("is-up");
+      setActive(Math.max(0, opts.findIndex(o => o.getAttribute("aria-selected") === "true")));
+      list.focus({ preventScroll: true });
+    };
+    const choose = (i, focus = true) => {
+      opts.forEach((o, k) => o.setAttribute("aria-selected", String(k === i)));
+      input.value = val.textContent = opts[i].dataset.value;
+      btn.setAttribute("aria-label", `${label}: ${opts[i].dataset.value}`);
+      close(focus);
+    };
+    pk.closePick = () => close(false);
+    pk.resetPick = () => choose(0, false);
+    btn.addEventListener("click", () => (list.hidden ? open() : close(true)));
+    btn.addEventListener("keydown", e => { if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); open(); } });
+    list.addEventListener("keydown", e => {
+      if (e.key === "ArrowDown") { e.preventDefault(); setActive(active + 1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); setActive(active - 1); }
+      else if (e.key === "Home") { e.preventDefault(); setActive(0); }
+      else if (e.key === "End") { e.preventDefault(); setActive(opts.length - 1); }
+      else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(active); }
+      else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(true); }
+      else if (e.key === "Tab") close(false);
+      else if (/^\w$/.test(e.key)) { const k = opts.findIndex((o, n) => n > active && o.dataset.value.startsWith(e.key.toLowerCase())); const f = k >= 0 ? k : opts.findIndex(o => o.dataset.value.startsWith(e.key.toLowerCase())); if (f >= 0) setActive(f); }
+    });
+    opts.forEach((o, k) => {
+      o.addEventListener("click", () => choose(k));
+      o.addEventListener("mousemove", () => { if (active !== k) setActive(k); });
+    });
+    document.addEventListener("pointerdown", e => { if (!pk.contains(e.target)) close(false); });
+  });
+
+  $$(".talk-form").forEach(initTalk);
+
+  /* ── About: values light up as they reach the middle of the screen ── */
+  const vals = $$(".val");
+  if (vals.length) {
+    if (still || !("IntersectionObserver" in window)) vals.forEach(v => v.classList.add("is-on"));
+    else {
+      const vio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-on"); vio.unobserve(e.target); } }), { rootMargin: "-30% 0px -40% 0px" });
+      vals.forEach(v => vio.observe(v));
+    }
+  }
+
+  /* ── Solutions: the index follows the section you're reading ── */
+  const spies = $$("[data-spy]");
+  if (spies.length && "IntersectionObserver" in window) {
+    const sio = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      spies.forEach(s => s.classList.toggle("is-on", s.dataset.spy === e.target.id));
+      const on = spies.find(s => s.dataset.spy === e.target.id), bar = on?.parentElement;
+      if (on && bar && bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2, behavior: still ? "auto" : "smooth" });
+    }), { rootMargin: "-40% 0px -55% 0px" });
+    $$(".svc").forEach(s => sio.observe(s));
+    spies[0].classList.add("is-on");
+  }
 
   /* ── Tiles: figures count up once, renders drift a little against the scroll ── */
   const counters = $$(".tile-fig");
