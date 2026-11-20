@@ -18,6 +18,7 @@
 
   --r-pill: 999px;
   --gutter: clamp(16px, 3.4vw, 48px);
+  --nav-height: 84px;
   --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease: cubic-bezier(.2, .8, .2, 1);
 }
@@ -41,6 +42,8 @@ img { display: block; max-width: 100%; }
 :focus-visible { outline: 2px solid var(--volt); outline-offset: 3px; border-radius: 10px; }
 
 /* ───────── Frame ───────── */
+
+.hero, .ph { padding-block-start: var(--nav-height); }
 
 .hero {
   --tail: 170px;
@@ -76,11 +79,11 @@ img { display: block; max-width: 100%; }
    scrolls, the bar draws in from the edges and settles into a floating glass
    capsule that stays with them. */
 
-.nav { position: relative; z-index: 30; height: 84px; }
+.nav { position: fixed; inset: 0 0 auto; height: 0; z-index: 30; }
 .bar {
-  position: fixed; top: 0; left: 50%;
+  position: absolute; top: 0; left: 50%;
   width: min(1240px, calc(100% - 2 * var(--gutter)));
-  height: 84px; padding: 0;
+  height: var(--nav-height); padding: 0;
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
   border-radius: 999px;
   transform: translateX(-50%);
@@ -1135,7 +1138,7 @@ img { display: block; max-width: 100%; }
 /* ───────── Responsive ───────── */
 /* very short desktop windows (e.g. a laptop browser around 1360 × 680) */
 @media (max-height: 720px) and (min-width: 901px) {
-  .nav, .bar { height: 70px; }
+  :root { --nav-height: 70px; }
   .nav.is-scrolled .bar { height: 56px; top: 10px; }
   .plug-btn, .nav.is-scrolled .plug-btn { height: 40px; }
   .hero-copy { padding-top: 26px !important; }
@@ -1163,7 +1166,7 @@ img { display: block; max-width: 100%; }
   .node-lines { display: none; }
 }
 @media (max-width: 900px) {
-  .nav, .bar { height: 68px; }
+  :root { --nav-height: 68px; }
   .bar { grid-template-columns: 1fr auto; }
   .nav.is-scrolled .bar { top: 10px; height: 58px; width: calc(100% - 20px); padding: 0 7px 0 20px; }
   .links, .plug-btn { display: none; }
