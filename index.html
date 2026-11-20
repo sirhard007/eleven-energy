@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eleven Energy</title>
+  <meta name="description" content="Microgrids, battery storage, solar and EV charging for businesses and communities across Africa.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Icons: one stroke family on a 20px grid -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 2.4v1.8M10 15.8v1.8M2.4 10h1.8M15.8 10h1.8M4.6 4.6l1.3 1.3M14.1 14.1l1.3 1.3M4.6 15.4l1.3-1.3M14.1 5.9l1.3-1.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-battery" viewBox="0 0 20 20"><rect x="2.6" y="5.8" width="13" height="8.4" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M17.6 8.7v2.6M5.6 8.6v2.8M8.2 8.6v2.8M10.8 8.6v2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-home" viewBox="0 0 20 20"><path d="M3 9 10 3.2 17 9v7.8a.8.8 0 0 1-.8.8H3.8a.8.8 0 0 1-.8-.8V9Z M8 17.6v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+      <symbol id="i-plug" viewBox="0 0 20 20"><path d="M7.4 2.6v3.6M12.6 2.6v3.6M5 6.2h10v2.6a5 5 0 0 1-10 0V6.2ZM10 13.8v3.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 20 20"><circle cx="10" cy="4.6" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="4.4" cy="15" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="15.6" cy="15" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 6.4 5.4 13.2M11 6.4l3.6 6.8M6.4 15h7.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-building" viewBox="0 0 20 20"><path d="M3.4 17.4V5.2l6.4-2.6v14.8M9.8 7.4h6.8v10M2.2 17.4h15.6M6 7.6v.01M6 10.4v.01M6 13.2v.01M13 10.4v.01M13 13.2v.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-clipboard" viewBox="0 0 20 20"><rect x="4" y="3.6" width="12" height="14" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.4 3.6V2.4h5.2v1.2M7 9.2h6M7 12.4h3.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-store" viewBox="0 0 20 20"><path d="M3 7.6 4.4 3h11.2L17 7.6M3 7.6h14M3 7.6a2.3 2.3 0 0 0 4.66 0 2.33 2.33 0 0 0 4.67 0A2.33 2.33 0 0 0 17 7.6M4.2 10v7.4h11.6V10M8.2 17.4v-4h3.6v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M6 14 14 6M7.4 6H14v6.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 20 20"><path d="m6 8 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-close" viewBox="0 0 20 20"><path d="m5.5 5.5 9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 20 20"><path d="M4 7.5h12M4 12.5h8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 20 20"><path d="m4.6 10.4 3.4 3.4 7.4-7.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </defs>
+  </svg>
+
+  <section class="hero" id="hero" aria-label="Eleven Energy">
+    <div class="hero-art" id="heroArt" data-top="0.498" data-base="0.732">
+      <img id="heroImg" src="assets/hero-tall.jpg" alt="An Eleven Energy storage unit and EV charger lit at blue hour on the open savanna" draggable="false">
+    </div>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-fade" aria-hidden="true"></div>
+
+    <!-- ── Navigation ── -->
+    <header class="nav" id="nav">
+      <div class="bar" id="bar">
+        <a class="brand" href="#hero" aria-label="Eleven Energy home"><svg class="logo-mark" viewBox="0 0 183.25 46.20" aria-hidden="true" focusable="false">
+      <rect x="0.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.30"/>
+      <rect x="9.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.36"/>
+      <rect x="18.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.43"/>
+      <rect x="27.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.49"/>
+      <rect x="36.80" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.56"/>
+      <rect x="46.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.62"/>
+      <rect x="55.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.69"/>
+      <rect x="64.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.76"/>
+      <rect x="73.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.82"/>
+      <rect x="83.40" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+      <rect x="91.60" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+      <path fill="#7CC35E" d="M103.00,0.00h2.35v21.00h-2.35zM103.00,0.00h11.00v2.35h-11.00zM103.00,9.32h9.80v2.35h-9.80zM103.00,18.65h11.00v2.35h-11.00zM116.10,0.00h2.35v21.00h-2.35zM116.10,18.65h10.50v2.35h-10.50zM128.70,0.00h2.35v21.00h-2.35zM128.70,0.00h11.00v2.35h-11.00zM128.70,9.32h9.80v2.35h-9.80zM128.70,18.65h11.00v2.35h-11.00zM141.80,0.00 L144.45,0.00 L148.30,16.80 L152.15,0.00 L154.80,0.00 L149.82,21.00 L146.77,21.00zM156.90,0.00h2.35v21.00h-2.35zM156.90,0.00h11.00v2.35h-11.00zM156.90,9.32h9.80v2.35h-9.80zM156.90,18.65h11.00v2.35h-11.00zM170.00,0.00h2.35v21.00h-2.35zM180.65,0.00h2.35v21.00h-2.35zM170.00,0.00 L172.95,0.00 L183.00,21.00 L180.05,21.00zM103.00,25.20h2.35v21.00h-2.35zM103.00,25.20h11.00v2.35h-11.00zM103.00,34.53h9.80v2.35h-9.80zM103.00,43.85h11.00v2.35h-11.00zM115.25,25.20h2.35v21.00h-2.35zM125.90,25.20h2.35v21.00h-2.35zM115.25,25.20 L118.20,25.20 L128.25,46.20 L125.30,46.20zM129.50,25.20h2.35v21.00h-2.35zM129.50,25.20h11.00v2.35h-11.00zM129.50,34.53h9.80v2.35h-9.80zM129.50,43.85h11.00v2.35h-11.00zM141.75,25.20h2.35v21.00h-2.35zM147.00,35.92 L149.75,35.92 L154.25,46.20 L151.50,46.20zM166.65,35.90h2.35v6.71h-2.35zM162.05,35.90h6.95v2.35h-6.95zM170.25,25.20 L172.90,25.20 L176.75,33.10 L180.60,25.20 L183.25,25.20 L177.93,36.30 L177.93,46.20 L175.57,46.20 L175.57,36.30z"/>
+      <path fill="none" stroke="#7CC35E" stroke-width="2.35" stroke-linejoin="miter" d="M144.10,26.38 H148.19 A4.29,4.29 0 0 1 148.19,34.95 H144.10 M166.39,29.46 A5.58,9.32 0 1 0 167.82,36.70"/>
+    </svg></a>
+
+        <nav class="links" id="dock" aria-label="Primary">
+          <span class="lens" id="lens" aria-hidden="true"></span>
+          <a href="#hero" class="dock-link is-active" aria-current="page">Home</a>
+          <button class="dock-link" type="button" data-open-drawer="about">About</button>
+          <div class="dock-drop">
+            <button class="dock-link" type="button" id="solutionsBtn" aria-expanded="false" aria-controls="solutionsMenu">Solutions<svg class="ico ico-14 chev"><use href="#i-chevron"/></svg></button>
+          <div class="menu" id="solutionsMenu" role="menu" hidden>
+            <button class="menu-item" role="menuitem" data-open-drawer="microgrids"><svg class="ico"><use href="#i-grid"/></svg><span><b>Microgrids</b><small>Solar, wind and storage on one controller</small></span></button>
+            <button class="menu-item" role="menuitem" data-open-drawer="storage"><svg class="ico"><use href="#i-battery"/></svg><span><b>Energy storage</b><small>Containerised batteries that cover outages</small></span></button>
+            <button class="menu-item" role="menuitem" data-open-drawer="audits"><svg class="ico"><use href="#i-clipboard"/></svg><span><b>Energy audits</b><small>Where your power and diesel money goes</small></span></button>
+            <button class="menu-item" role="menuitem" data-open-drawer="home"><svg class="ico"><use href="#i-home"/></svg><span><b>Home solar</b><small>Rooftop systems with battery backup</small></span></button>
+            <button class="menu-item" role="menuitem" data-open-drawer="sme"><svg class="ico"><use href="#i-store"/></svg><span><b>SME energy</b><small>Shops, clinics and workshops off diesel</small></span></button>
+            <button class="menu-item" role="menuitem" data-open-drawer="ev"><svg class="ico"><use href="#i-plug"/></svg><span><b>EV charging</b><small>Level 2 and fast chargers, networked</small></span></button>
+            <button class="menu-item" role="menuitem" data-open-drawer="commercial"><svg class="ico"><use href="#i-building"/></svg><span><b>Commercial energy</b><small>Solar, LED retrofits and smart buildings</small></span></button>
+          </div>
+          </div>
+          <button class="dock-link" type="button" data-open-modal="contact">Contact</button>
+        </nav>
+
+        <div class="nav-end">
+          <button class="plug-btn" type="button" data-open-modal="contact"><span class="plug-ico"><svg class="ico ico-16"><use href="#i-plug"/></svg></span><span class="plug-label">Talk to an engineer</span></button>
+          <button class="burger" type="button" id="burger" aria-label="Open menu" aria-expanded="false"><svg class="ico"><use href="#i-menu"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Copy ── -->
+    <div class="hero-copy">
+      <p class="tag reveal" style="--d:0">
+        <span class="tag-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span>Sustainable energy solutions</span>
+        <span class="tag-sep" aria-hidden="true"></span>
+        <span class="tag-soft">Across Africa</span>
+      </p>
+
+      <h1 class="headline" id="headline">
+        <span class="hl-line">Powering up Africa<span class="inline-art" aria-hidden="true"><img id="inlineImg" src="assets/inline.jpg" alt="" draggable="false"></span></span>
+        <span class="hl-line">with energy that stays on</span>
+      </h1>
+
+      <p class="lede reveal" style="--d:2">Microgrids, battery storage and solar for businesses and communities that can't afford another outage.</p>
+
+      <div class="cta-row reveal" style="--d:3">
+        <button class="btn-volt" type="button" data-open-modal="audit">Book an energy audit<span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+        <button class="btn-quiet" type="button" data-open-drawer="microgrids">See how a microgrid works</button>
+      </div>
+    </div>
+
+    <!-- ── Callouts: x/y are fractions of hero.jpg ── -->
+    <svg class="node-lines" id="nodeLines" aria-hidden="true"></svg>
+    <div class="nodes" id="nodes">
+      <div class="node" data-x="0.566" data-y="0.563" data-side="right" data-reach="170" data-lift="-58">
+        <button class="node-dot" type="button" aria-label="Solar canopy details"></button>
+        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-sun"/></svg></span><span><b class="num">48 kWp</b> solar canopy</span></div>
+      </div>
+      <div class="node" data-x="0.684" data-y="0.659" data-side="right" data-reach="130" data-lift="20">
+        <button class="node-dot" type="button" aria-label="Battery storage details"></button>
+        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-battery"/></svg></span><span><b class="num">1 MWh</b> LFP storage</span></div>
+      </div>
+      <div class="node" data-x="0.292" data-y="0.643" data-side="left" data-reach="70" data-lift="-44">
+        <button class="node-dot" type="button" aria-label="EV charger details"></button>
+        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-plug"/></svg></span><span><b class="num">60 kW</b> DC fast charger</span></div>
+      </div>
+    </div>
+
+    <div class="calibrate" id="calibrate" hidden><b>Node calibration</b><span id="calibrateOut">Click the image to read a point.</span></div>
+  </section>
+
+  <!-- ── About ── -->
+  <section class="about" id="about" aria-labelledby="aboutTitle">
+    <div class="about-intro">
+      <p class="about-mark rise"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Sustainable · Energy · Solutions</p>
+      <div class="about-copy">
+        <h2 id="aboutTitle" class="scrub">Eleven Energy designs, installs and runs commercial‑grade energy systems for businesses across Africa. <span>Every project starts by measuring what your site uses, so the system we build pays for itself.</span></h2>
+        <div class="about-actions rise" style="--d:1">
+          <button class="btn-ink" type="button" data-open-modal="audit">Book an energy audit<span class="btn-ink-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+          <button class="btn-line" type="button" data-open-drawer="about">How we work</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="build">
+      <div class="build-head">
+        <p class="kicker rise">What we build most</p>
+        <h3 class="build-title words">Three systems for sites that can't afford downtime</h3>
+      </div>
+      <div class="tiles">
+        <article class="tile rise" style="--d:0;--tint:#ECF0E6">
+          <div class="tile-stage">
+            <span class="tile-num">01</span>
+            <div class="tile-art"><img class="tile-img" src="assets/render-microgrid.jpg" alt="An Eleven Energy storage container with a solar canopy on its roof" loading="lazy"><span class="tile-node" style="--x:51.9%;--y:28.7%;--n:0"><i></i><em>48 kWp solar canopy</em></span><span class="tile-node" style="--x:47.1%;--y:70.8%;--n:1"><i></i><em>1 MWh LFP storage</em></span></div>
+          </div>
+          <div class="tile-body">
+            <div class="tile-head">
+              <h4>Renewable microgrids</h4>
+              <button class="tile-go" type="button" data-open-drawer="microgrids" aria-label="How a microgrid works"><svg class="ico ico-16"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p>Solar, wind and storage on one controller, for sites the grid can't keep running.</p>
+            <p class="tile-fig"><b>&lt;<span class="cu" data-to="20">20</span> ms</b>switchover when the grid drops</p>
+          </div>
+        </article>
+        <article class="tile rise" style="--d:1;--tint:#E7EEEB">
+          <div class="tile-stage">
+            <span class="tile-num">02</span>
+            <div class="tile-art"><img class="tile-img" src="assets/render-ev.jpg" alt="An Eleven Energy DC fast charging pedestal" loading="lazy"><span class="tile-node" style="--x:50.4%;--y:23.5%;--n:0"><i></i><em>Tap-to-charge screen</em></span><span class="tile-node" style="--x:58.3%;--y:50.7%;--n:1"><i></i><em>CCS2 cable, 5 m</em></span></div>
+          </div>
+          <div class="tile-body">
+            <div class="tile-head">
+              <h4>EV charging networks</h4>
+              <button class="tile-go" type="button" data-open-drawer="ev" aria-label="Plan a charging site"><svg class="ico ico-16"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p>Level 2 and DC fast chargers on one network, for estates, offices and public parking.</p>
+            <p class="tile-fig"><b><span class="cu" data-to="60">60</span>–<span class="cu" data-to="150">150</span> kW</b>DC fast charging</p>
+          </div>
+        </article>
+        <article class="tile rise" style="--d:2;--tint:#F1EEE7">
+          <div class="tile-stage">
+            <span class="tile-num">03</span>
+            <div class="tile-art"><img class="tile-img" src="assets/render-commercial.jpg" alt="A rooftop solar array on an aluminium mounting frame" loading="lazy"><span class="tile-node" style="--x:34.6%;--y:38.1%;--n:0"><i></i><em>Bifacial 580 W modules</em></span><span class="tile-node" style="--x:56.1%;--y:66.4%;--n:1"><i></i><em>Ballasted roof frame</em></span></div>
+          </div>
+          <div class="tile-body">
+            <div class="tile-head">
+              <h4>Commercial energy</h4>
+              <button class="tile-go" type="button" data-open-drawer="commercial" aria-label="See what a retrofit saves"><svg class="ico ico-16"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p>Rooftop solar, LED retrofits and building controls that bring the monthly bill down.</p>
+            <p class="tile-fig"><b><span class="cu" data-to="30">30</span>–<span class="cu" data-to="60">60</span>%</b>lower lighting load after LED</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Our commitment ── -->
+  <section class="purpose" id="commitment" aria-labelledby="purposeTitle">
+    <div class="purpose-wrap">
+      <div class="purpose-top">
+        <p class="purpose-eyebrow"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Powering up Africa</p>
+        <span class="purpose-note">Our purpose. Your possibilities.</span>
+      </div>
+      <div class="purpose-intro">
+        <h2 id="purposeTitle">A brighter future.<span>Built from the ground up.</span></h2>
+        <p>Progress starts with dependable power. We bring renewable energy expertise to the places, people and ambitions moving Africa forward.</p>
+      </div>
+      <div class="purpose-grid">
+        <figure class="purpose-visual">
+          <div class="purpose-orbit" aria-hidden="true"></div>
+          <img src="assets/africa-energy.webp" alt="A sculptural landscape shaped like Africa, bringing together solar energy, battery storage, homes and green spaces." width="1000" height="1000" loading="lazy" decoding="async">
+          <figcaption><span class="purpose-visual-mark" aria-hidden="true"><svg class="ico"><use href="#i-grid"/></svg></span><span>One continent.<br><strong>Endless possibility.</strong></span></figcaption>
+          <span class="purpose-visual-label">A vision for better energy</span>
+        </figure>
+        <div class="purpose-explore">
+          <p class="purpose-explore-label">Better energy means something.</p>
+          <div class="purpose-principles">
+            <details class="purpose-principle" name="energy-principle" open>
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg></span><span>Accessible</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Built around your world.</h3><p>From homes and schools to commercial hubs and communities, every place has different energy needs. We start by understanding yours.</p><span class="purpose-tag">People first. Always.</span></div>
+            </details>
+            <details class="purpose-principle" name="energy-principle">
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span>Affordable</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Good energy. Sound economics.</h3><p>Your real energy use shapes the design. We measure your loads and running costs to build a system that makes financial sense for your site.</p><span class="purpose-tag">A smarter use of your energy budget.</span></div>
+            </details>
+            <details class="purpose-principle" name="energy-principle">
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-battery"/></svg></span><span>Reliable</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Keep your plans moving.</h3><p>Solar, storage and intelligent controls work together to keep the things that matter running. Our team designs around the demands of your day.</p><span class="purpose-tag">Less interruption. More possibility.</span></div>
+            </details>
+            <details class="purpose-principle" name="energy-principle">
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg></span><span>Sustainable</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Power today. Think beyond it.</h3><p>Make more of Africa's renewable resources, reduce dependence on diesel and build for the long term. Cleaner energy belongs in everyday life.</p><span class="purpose-tag">A lighter footprint. A lasting difference.</span></div>
+            </details>
+          </div>
+          <div class="purpose-explore-foot"><p>Decades of expertise.<br>One shared commitment to progress.</p><button type="button" data-open-drawer="about" class="purpose-about">Get to know Eleven<svg class="ico ico-16" aria-hidden="true"><use href="#i-grid"/></svg></button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="solution-index" id="solutions" aria-labelledby="discoverTitle">
+    <div class="solution-index-inner">
+      <header class="solution-index-heading">
+        <h2 id="discoverTitle">Explore our energy solutions</h2>
+        <p>Choose a service to see what it covers.</p>
+      </header>
+      <ul class="solution-index-list">
+        <li><button type="button" data-open-drawer="microgrids" aria-haspopup="dialog">Microgrids</button></li>
+        <li><button type="button" data-open-drawer="storage" aria-haspopup="dialog">Energy storage</button></li>
+        <li><button type="button" data-open-drawer="home" aria-haspopup="dialog">Home solar</button></li>
+        <li><button type="button" data-open-drawer="sme" aria-haspopup="dialog">SME energy</button></li>
+        <li><button type="button" data-open-drawer="ev" aria-haspopup="dialog">EV charging</button></li>
+        <li><button type="button" data-open-drawer="audits" aria-haspopup="dialog">Energy audits</button></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Start a conversation / footer ── -->
+  <div class="page-close">
+    <section class="closing-contact" id="contact" aria-labelledby="contactTitle">
+      <div class="closing-topline"><p><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Your next chapter starts here</p><span>Built for people. Powered by possibility.</span></div>
+      <div class="closing-main">
+        <div class="closing-copy"><h2 id="contactTitle">Let’s power<br><span>what’s next.</span></h2><p>A more reliable day. A growing business. A thriving community.<br>Tell us what you have in mind. We’ll help you find a way forward.</p></div>
+        <div class="closing-action">
+          <div class="closing-charge" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <button class="closing-cta" type="button" data-open-modal="contact"><span>Let’s talk energy</span><span class="closing-cta-icon"><svg class="ico" aria-hidden="true"><use href="#i-plug"/></svg></span></button>
+          <p>Already have a site in mind? <button type="button" data-open-modal="audit">Book an energy audit</button></p>
+        </div>
+      </div>
+    </section>
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="footer-main">
+        <div class="footer-brand"><a href="#hero" aria-label="Eleven Energy home"><img src="assets/eleven-energy-logo.svg" width="183" height="46" alt="Eleven Energy" loading="lazy"></a><p>Better energy.<br>More possibility, across Africa.</p></div>
+        <nav class="footer-nav" aria-label="Company"><h3>Eleven Energy</h3><a href="#hero">Home</a><a href="#commitment">Our purpose</a><button type="button" data-open-drawer="about">About us</button><button type="button" data-open-modal="contact">Contact us</button></nav>
+        <nav class="footer-nav footer-solutions" aria-label="Energy solutions"><h3>Find your solution</h3><div><button type="button" data-open-drawer="microgrids">Microgrids</button><button type="button" data-open-drawer="storage">Energy storage</button><button type="button" data-open-drawer="audits">Energy audits</button><button type="button" data-open-drawer="home">Home solar</button><button type="button" data-open-drawer="sme">SME energy</button><button type="button" data-open-drawer="ev">EV charging</button></div></nav>
+        <div class="footer-return"><a href="#hero"><span>Back to the beginning</span><span class="footer-return-icon" aria-hidden="true"><svg class="ico"><use href="#i-sun"/></svg></span></a><p>Good energy. From here on.</p></div>
+      </div>
+      <div class="footer-bottom"><p>© <span id="copyrightYear">2026</span> Eleven Energy. All rights reserved.</p><span>Sustainable energy solutions, across Africa.</span></div>
+    </footer>
+  </div>
+
+  <!-- ── Mobile menu ── -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-head">
+      <span class="brand"><svg class="logo-mark" viewBox="0 0 183.25 46.20" aria-hidden="true" focusable="false">
+      <rect x="0.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.30"/>
+      <rect x="9.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.36"/>
+      <rect x="18.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.43"/>
+      <rect x="27.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.49"/>
+      <rect x="36.80" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.56"/>
+      <rect x="46.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.62"/>
+      <rect x="55.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.69"/>
+      <rect x="64.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.76"/>
+      <rect x="73.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.82"/>
+      <rect x="83.40" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+      <rect x="91.60" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+      <path fill="#7CC35E" d="M103.00,0.00h2.35v21.00h-2.35zM103.00,0.00h11.00v2.35h-11.00zM103.00,9.32h9.80v2.35h-9.80zM103.00,18.65h11.00v2.35h-11.00zM116.10,0.00h2.35v21.00h-2.35zM116.10,18.65h10.50v2.35h-10.50zM128.70,0.00h2.35v21.00h-2.35zM128.70,0.00h11.00v2.35h-11.00zM128.70,9.32h9.80v2.35h-9.80zM128.70,18.65h11.00v2.35h-11.00zM141.80,0.00 L144.45,0.00 L148.30,16.80 L152.15,0.00 L154.80,0.00 L149.82,21.00 L146.77,21.00zM156.90,0.00h2.35v21.00h-2.35zM156.90,0.00h11.00v2.35h-11.00zM156.90,9.32h9.80v2.35h-9.80zM156.90,18.65h11.00v2.35h-11.00zM170.00,0.00h2.35v21.00h-2.35zM180.65,0.00h2.35v21.00h-2.35zM170.00,0.00 L172.95,0.00 L183.00,21.00 L180.05,21.00zM103.00,25.20h2.35v21.00h-2.35zM103.00,25.20h11.00v2.35h-11.00zM103.00,34.53h9.80v2.35h-9.80zM103.00,43.85h11.00v2.35h-11.00zM115.25,25.20h2.35v21.00h-2.35zM125.90,25.20h2.35v21.00h-2.35zM115.25,25.20 L118.20,25.20 L128.25,46.20 L125.30,46.20zM129.50,25.20h2.35v21.00h-2.35zM129.50,25.20h11.00v2.35h-11.00zM129.50,34.53h9.80v2.35h-9.80zM129.50,43.85h11.00v2.35h-11.00zM141.75,25.20h2.35v21.00h-2.35zM147.00,35.92 L149.75,35.92 L154.25,46.20 L151.50,46.20zM166.65,35.90h2.35v6.71h-2.35zM162.05,35.90h6.95v2.35h-6.95zM170.25,25.20 L172.90,25.20 L176.75,33.10 L180.60,25.20 L183.25,25.20 L177.93,36.30 L177.93,46.20 L175.57,46.20 L175.57,36.30z"/>
+      <path fill="none" stroke="#7CC35E" stroke-width="2.35" stroke-linejoin="miter" d="M144.10,26.38 H148.19 A4.29,4.29 0 0 1 148.19,34.95 H144.10 M166.39,29.46 A5.58,9.32 0 1 0 167.82,36.70"/>
+    </svg></span>
+      <button class="glass-btn glass-btn-icon" type="button" data-close aria-label="Close menu"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <nav class="sheet-nav" aria-label="Mobile">
+      <a href="#hero" data-close>Home</a>
+      <button type="button" data-open-drawer="about">About</button>
+      <button type="button" data-open-drawer="microgrids">Microgrids</button>
+      <button type="button" data-open-drawer="storage">Energy storage</button>
+      <button type="button" data-open-drawer="ev">EV charging</button>
+      <button type="button" data-open-drawer="commercial">Commercial energy</button>
+      <button type="button" data-open-modal="contact">Contact</button>
+    </nav>
+    <button class="btn-volt btn-block" type="button" data-open-modal="audit">Book an energy audit<span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+  </div>
+
+  <!-- ── Solution drawer ── -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle" role="dialog" aria-modal="true">
+    <div class="drawer-head">
+      <span class="drawer-eyebrow" id="drawerEyebrow"></span>
+      <button class="glass-btn glass-btn-icon glass-btn-sm" type="button" data-close aria-label="Close"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-badge" id="drawerBadge"></div>
+      <h2 id="drawerTitle"></h2>
+      <p class="drawer-lede" id="drawerLede"></p>
+      <div class="drawer-stats" id="drawerStats"></div>
+      <h3>What we install</h3>
+      <ul class="drawer-list" id="drawerList"></ul>
+      <h3>Where it works best</h3>
+      <div class="drawer-sites" id="drawerSites"></div>
+    </div>
+    <div class="drawer-foot">
+      <button class="btn-volt btn-block" type="button" id="drawerCta"><span>Book an energy audit</span><span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+    </div>
+  </aside>
+
+  <!-- ── Audit / contact modal ── -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <form class="modal-card" id="auditForm" novalidate>
+      <div class="modal-head">
+        <div>
+          <h2 id="modalTitle">Book an energy audit</h2>
+          <p id="modalSub"></p>
+        </div>
+        <button class="glass-btn glass-btn-icon glass-btn-sm" type="button" data-close aria-label="Close"><svg class="ico"><use href="#i-close"/></svg></button>
+      </div>
+      <div class="modal-fields">
+        <div class="field-row">
+          <label class="field"><span>Your name</span><input name="name" type="text" autocomplete="name" placeholder="Amaka Eze" required></label>
+          <label class="field"><span>Organisation</span><input name="org" type="text" autocomplete="organization" placeholder="Bright Futures Academy"></label>
+        </div>
+        <fieldset class="field">
+          <legend>What are we powering?</legend>
+          <div class="seg">
+            <label><input type="radio" name="site" value="business" checked><span>Business</span></label>
+            <label><input type="radio" name="site" value="school"><span>School or clinic</span></label>
+            <label><input type="radio" name="site" value="community"><span>Community</span></label>
+            <label><input type="radio" name="site" value="estate"><span>Housing estate</span></label>
+          </div>
+        </fieldset>
+        <div class="field-row">
+          <label class="field"><span>Site location</span><input name="loc" type="text" placeholder="Ikeja, Lagos" required></label>
+          <label class="field"><span>Monthly diesel and grid spend</span>
+            <span class="select"><select name="spend">
+              <option>Under $1,000</option>
+              <option selected>$1,000 – $5,000</option>
+              <option>$5,000 – $20,000</option>
+              <option>Over $20,000</option>
+              <option>Not sure yet</option>
+            </select><svg class="ico ico-16"><use href="#i-chevron"/></svg></span>
+          </label>
+        </div>
+        <label class="field"><span>What keeps going wrong? <em>Optional</em></span>
+          <textarea name="note" rows="3" placeholder="Grid drops most evenings and the generator runs about six hours a day."></textarea>
+        </label>
+        <input type="hidden" name="interest" id="interestField">
+      </div>
+      <div class="modal-foot">
+        <span class="modal-note" id="modalNote"></span>
+        <button class="btn-volt" type="submit"><span id="submitLabel">Request my site audit</span><span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+      </div>
+      <div class="modal-done" id="modalDone" hidden>
+        <span class="done-ico"><svg class="ico"><use href="#i-check"/></svg></span>
+        <h2 id="doneTitle"></h2>
+        <p id="doneText"></p>
+        <button class="glass-btn" type="button" data-close>Back to the page</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
