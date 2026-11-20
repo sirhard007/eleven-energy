@@ -991,7 +991,15 @@ img { display: block; max-width: 100%; }
   .ab-values-grid { grid-template-columns: 1fr; gap: 36px; }
   .ab-values-head { position: static; }
   .ab-team { max-width: 100%; aspect-ratio: 16 / 11; }
-  .ab-sector-row { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+  .ab-sector-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
   .ab-sector-row::-webkit-scrollbar { display: none; }
   .ab-sector { flex: none; width: min(60vw, 280px); scroll-snap-align: start; }
   .pg-cta-grid { grid-template-columns: 1fr; gap: 32px; }
