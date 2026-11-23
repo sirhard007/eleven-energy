@@ -1,0 +1,59 @@
+<!--
+  The original photo hero for index.html, kept so we can switch back.
+
+  To switch back:
+  1. In index.html, replace the whole <section class="hero hv hv-bulb" id="hero"> … </section>
+     with the section below.
+  2. Remove the two hero-nepa lines from index.html:
+       <link rel="stylesheet" href="hero-nepa.css">
+       <script src="hero-nepa.js"></script>
+  script.js already handles this hero (it looks for #heroImg), so nothing else changes.
+-->
+  <section class="hero" id="hero" aria-label="Eleven Energy">
+    <div class="hero-art" id="heroArt" data-top="0.498" data-base="0.732">
+      <img id="heroImg" src="assets/hero-tall.jpg" alt="An Eleven Energy storage unit and EV charger lit at blue hour on the open savanna" draggable="false">
+    </div>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-fade" aria-hidden="true"></div>
+
+    <!-- ── Copy ── -->
+    <div class="hero-copy">
+      <p class="tag reveal" style="--d:0">
+        <span class="tag-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span>Sustainable energy solutions</span>
+        <span class="tag-sep" aria-hidden="true"></span>
+        <span class="tag-soft">Across Africa</span>
+      </p>
+
+      <h1 class="headline" id="headline">
+        <span class="hl-line">Powering up Africa<span class="inline-art" aria-hidden="true"><img id="inlineImg" src="assets/inline.jpg" alt="" draggable="false"></span></span>
+        <span class="hl-line">with energy that stays on</span>
+      </h1>
+
+      <p class="lede reveal" style="--d:2">Microgrids, battery storage and solar for businesses and communities that can't afford another outage.</p>
+
+      <div class="cta-row reveal" style="--d:3">
+        <button class="btn-volt" type="button" data-open-modal="audit">Book an energy audit<span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+        <button class="btn-quiet" type="button" data-open-drawer="microgrids">See how a microgrid works</button>
+      </div>
+    </div>
+
+    <!-- ── Callouts: x/y are fractions of hero.jpg ── -->
+    <svg class="node-lines" id="nodeLines" aria-hidden="true"></svg>
+    <div class="nodes" id="nodes">
+      <div class="node" data-x="0.566" data-y="0.563" data-side="right" data-reach="170" data-lift="-58">
+        <button class="node-dot" type="button" aria-label="Solar canopy details"></button>
+        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-sun"/></svg></span><span><b class="num">48 kWp</b> solar canopy</span></div>
+      </div>
+      <div class="node" data-x="0.684" data-y="0.659" data-side="right" data-reach="130" data-lift="20">
+        <button class="node-dot" type="button" aria-label="Battery storage details"></button>
+        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-battery"/></svg></span><span><b class="num">1 MWh</b> LFP storage</span></div>
+      </div>
+      <div class="node" data-x="0.292" data-y="0.643" data-side="left" data-reach="70" data-lift="-44">
+        <button class="node-dot" type="button" aria-label="EV charger details"></button>
+        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-plug"/></svg></span><span><b class="num">60 kW</b> DC fast charger</span></div>
+      </div>
+    </div>
+
+    <div class="calibrate" id="calibrate" hidden><b>Node calibration</b><span id="calibrateOut">Click the image to read a point.</span></div>
+  </section>

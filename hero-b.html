@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hero B · Cut the grid · Eleven Energy</title>
+  <meta name="description" content="Microgrids, battery storage, solar and EV charging for businesses and communities across Africa.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="hero-variants.css">
+  <meta name="robots" content="noindex">
+</head>
+<body>
+
+  <!-- Icons: one stroke family on a 20px grid -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 2.4v1.8M10 15.8v1.8M2.4 10h1.8M15.8 10h1.8M4.6 4.6l1.3 1.3M14.1 14.1l1.3 1.3M4.6 15.4l1.3-1.3M14.1 5.9l1.3-1.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-battery" viewBox="0 0 20 20"><rect x="2.6" y="5.8" width="13" height="8.4" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M17.6 8.7v2.6M5.6 8.6v2.8M8.2 8.6v2.8M10.8 8.6v2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-home" viewBox="0 0 20 20"><path d="M3 9 10 3.2 17 9v7.8a.8.8 0 0 1-.8.8H3.8a.8.8 0 0 1-.8-.8V9Z M8 17.6v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+      <symbol id="i-plug" viewBox="0 0 20 20"><path d="M7.4 2.6v3.6M12.6 2.6v3.6M5 6.2h10v2.6a5 5 0 0 1-10 0V6.2ZM10 13.8v3.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 20 20"><circle cx="10" cy="4.6" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="4.4" cy="15" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="15.6" cy="15" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 6.4 5.4 13.2M11 6.4l3.6 6.8M6.4 15h7.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-building" viewBox="0 0 20 20"><path d="M3.4 17.4V5.2l6.4-2.6v14.8M9.8 7.4h6.8v10M2.2 17.4h15.6M6 7.6v.01M6 10.4v.01M6 13.2v.01M13 10.4v.01M13 13.2v.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-clipboard" viewBox="0 0 20 20"><rect x="4" y="3.6" width="12" height="14" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.4 3.6V2.4h5.2v1.2M7 9.2h6M7 12.4h3.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-store" viewBox="0 0 20 20"><path d="M3 7.6 4.4 3h11.2L17 7.6M3 7.6h14M3 7.6a2.3 2.3 0 0 0 4.66 0 2.33 2.33 0 0 0 4.67 0A2.33 2.33 0 0 0 17 7.6M4.2 10v7.4h11.6V10M8.2 17.4v-4h3.6v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M6 14 14 6M7.4 6H14v6.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 20 20"><path d="m6 8 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-close" viewBox="0 0 20 20"><path d="m5.5 5.5 9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 20 20"><path d="M4 7.5h12M4 12.5h8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 20 20"><path d="M6.2 2.8H4.4a1.4 1.4 0 0 0-1.4 1.5c.6 7 5.7 12.1 12.7 12.7a1.4 1.4 0 0 0 1.5-1.4v-1.8a1 1 0 0 0-.7-1l-2.6-.9a1 1 0 0 0-1.1.3l-1 1.2a10 10 0 0 1-4.6-4.6l1.2-1a1 1 0 0 0 .3-1.1l-.9-2.6a1 1 0 0 0-1-.7Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 20 20"><path d="M10 3.2a6.8 6.8 0 0 0-5.9 10.2L3.2 16.8l3.5-.9A6.8 6.8 0 1 0 10 3.2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.6 8.4c.3 1.6 1.9 3.3 3.8 3.9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 20 20"><rect x="2.8" y="4.4" width="14.4" height="11.2" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m3.6 5.6 6.4 5 6.4-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 20 20"><path d="m4.6 10.4 3.4 3.4 7.4-7.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-play" viewBox="0 0 20 20"><path d="M7.2 5.3v9.4a.7.7 0 0 0 1.07.6l7.3-4.7a.7.7 0 0 0 0-1.2L8.27 4.7a.7.7 0 0 0-1.07.6Z" fill="currentColor"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 20 20"><rect x="5.6" y="4.8" width="3" height="10.4" rx="1.1" fill="currentColor"/><rect x="11.4" y="4.8" width="3" height="10.4" rx="1.1" fill="currentColor"/></symbol>
+      <symbol id="i-power" viewBox="0 0 20 20"><path d="M10 3.2v6.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M6.2 5.8a6 6 0 1 0 7.6 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+      <symbol id="i-sound" viewBox="0 0 20 20"><path d="M3.5 7.6h2.6L10 4.4v11.2L6.1 12.4H3.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 7.3a3.8 3.8 0 0 1 0 5.4M15.3 5.2a6.8 6.8 0 0 1 0 9.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-mute" viewBox="0 0 20 20"><path d="M3.5 7.6h2.6L10 4.4v11.2L6.1 12.4H3.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m13 7.8 4.4 4.4m0-4.4L13 12.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-drag" viewBox="0 0 20 20"><path d="M7.5 6 3.5 10l4 4M12.5 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ── Navigation ── -->
+  <header class="nav" id="nav">
+    <div class="bar" id="bar">
+      <a class="brand" href="#hero" aria-label="Eleven Energy home"><svg class="logo-mark" viewBox="0 0 183.25 46.20" aria-hidden="true" focusable="false">
+    <rect x="0.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.30"/>
+    <rect x="9.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.36"/>
+    <rect x="18.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.43"/>
+    <rect x="27.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.49"/>
+    <rect x="36.80" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.56"/>
+    <rect x="46.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.62"/>
+    <rect x="55.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.69"/>
+    <rect x="64.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.76"/>
+    <rect x="73.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.82"/>
+    <rect x="83.40" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+    <rect x="91.60" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+    <path fill="#7CC35E" d="M103.00,0.00h2.35v21.00h-2.35zM103.00,0.00h11.00v2.35h-11.00zM103.00,9.32h9.80v2.35h-9.80zM103.00,18.65h11.00v2.35h-11.00zM116.10,0.00h2.35v21.00h-2.35zM116.10,18.65h10.50v2.35h-10.50zM128.70,0.00h2.35v21.00h-2.35zM128.70,0.00h11.00v2.35h-11.00zM128.70,9.32h9.80v2.35h-9.80zM128.70,18.65h11.00v2.35h-11.00zM141.80,0.00 L144.45,0.00 L148.30,16.80 L152.15,0.00 L154.80,0.00 L149.82,21.00 L146.77,21.00zM156.90,0.00h2.35v21.00h-2.35zM156.90,0.00h11.00v2.35h-11.00zM156.90,9.32h9.80v2.35h-9.80zM156.90,18.65h11.00v2.35h-11.00zM170.00,0.00h2.35v21.00h-2.35zM180.65,0.00h2.35v21.00h-2.35zM170.00,0.00 L172.95,0.00 L183.00,21.00 L180.05,21.00zM103.00,25.20h2.35v21.00h-2.35zM103.00,25.20h11.00v2.35h-11.00zM103.00,34.53h9.80v2.35h-9.80zM103.00,43.85h11.00v2.35h-11.00zM115.25,25.20h2.35v21.00h-2.35zM125.90,25.20h2.35v21.00h-2.35zM115.25,25.20 L118.20,25.20 L128.25,46.20 L125.30,46.20zM129.50,25.20h2.35v21.00h-2.35zM129.50,25.20h11.00v2.35h-11.00zM129.50,34.53h9.80v2.35h-9.80zM129.50,43.85h11.00v2.35h-11.00zM141.75,25.20h2.35v21.00h-2.35zM147.00,35.92 L149.75,35.92 L154.25,46.20 L151.50,46.20zM166.65,35.90h2.35v6.71h-2.35zM162.05,35.90h6.95v2.35h-6.95zM170.25,25.20 L172.90,25.20 L176.75,33.10 L180.60,25.20 L183.25,25.20 L177.93,36.30 L177.93,46.20 L175.57,46.20 L175.57,36.30z"/>
+    <path fill="none" stroke="#7CC35E" stroke-width="2.35" stroke-linejoin="miter" d="M144.10,26.38 H148.19 A4.29,4.29 0 0 1 148.19,34.95 H144.10 M166.39,29.46 A5.58,9.32 0 1 0 167.82,36.70"/>
+  </svg></a>
+
+      <nav class="links" id="dock" aria-label="Primary">
+        <span class="lens" id="lens" aria-hidden="true"></span>
+        <a href="#hero" class="dock-link is-active" aria-current="page">Home</a>
+        <a href="about.html" class="dock-link">About</a>
+        <a href="solutions.html" class="dock-link">Solutions</a>
+        <button class="dock-link" type="button" data-open-modal="contact">Contact</button>
+      </nav>
+
+      <div class="nav-end">
+        <button class="plug-btn" type="button" data-open-modal="contact"><span class="plug-ico"><svg class="ico ico-16"><use href="#i-plug"/></svg></span><span class="plug-label">Talk to an engineer</span></button>
+        <button class="burger" type="button" id="burger" aria-label="Open menu" aria-expanded="false"><svg class="ico"><use href="#i-menu"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero hv hv-b" id="hero" aria-label="Eleven Energy">
+    <div class="hvb-sky" aria-hidden="true"></div>
+    <div class="hv-copy">
+      <p class="tag reveal" style="--d:0">
+        <span class="tag-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span>Microgrids and storage</span>
+        <span class="tag-sep" aria-hidden="true"></span>
+        <span class="tag-soft">Across Africa</span>
+      </p>
+      <h1 class="hv-title" id="headline"><span class="hl-line">Energy that stays on</span><span class="hl-line">when the grid doesn’t.</span></h1>
+      <p class="lede reveal" style="--d:2">Cut the power to this street. The generators start next door, and the clinic on our microgrid doesn’t notice.</p>
+      <div class="cta-row reveal" style="--d:3">
+        <button class="btn-volt hvb-switch" type="button" aria-pressed="false"><span class="hvb-label">Cut the grid</span><span class="btn-volt-dot"><svg class="ico ico-16" aria-hidden="true"><use href="#i-power"/></svg></span></button>
+        <button class="btn-quiet" type="button" data-open-modal="audit">Book an energy audit</button>
+      </div>
+    </div>
+    <div class="hvb-street" aria-hidden="true">
+      <svg class="hvb-svg" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice"></svg>
+    </div>
+    <span class="hvb-pin" aria-hidden="true"><b></b>Kawo Community Clinic, on our microgrid</span>
+    <span class="hvb-gen" aria-hidden="true"><b></b>Generator on</span>
+    <span class="hvb-gen" aria-hidden="true"><b></b>Generator on</span>
+    <span class="hvb-gen" aria-hidden="true"><b></b>Generator on</span>
+    <aside class="hvb-card reveal" style="--d:4" aria-label="Kawo Community Clinic, Kaduna">
+      <p class="hvb-place"><span class="hvb-dot" aria-hidden="true"></span>Kawo Community Clinic, Kaduna · 19:40</p>
+      <p class="hvb-state" aria-live="polite">Grid on. The battery is full from today’s sun.</p>
+      <dl class="hvb-stats">
+        <div><dt>Switch to battery</dt><dd data-k="sw">Not needed</dd></div>
+        <div><dt>Outage so far</dt><dd data-k="time">None</dd></div>
+        <div><dt>Clinic battery</dt><dd data-k="bat">100%</dd></div>
+        <div><dt><span class="hvb-long">Diesel burned at the clinic</span><span class="hvb-short">Diesel, clinic</span></dt><dd data-k="here" class="is-good">0 L</dd></div>
+        <div><dt><span class="hvb-long">Diesel burned next door</span><span class="hvb-short">Diesel, next door</span></dt><dd data-k="next">0.0 L</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <!-- ── About ── -->
+  <section class="about" id="about" aria-labelledby="aboutTitle">
+    <div class="about-intro">
+      <p class="about-mark rise"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Sustainable · Energy · Solutions</p>
+      <div class="about-copy">
+        <h2 id="aboutTitle" class="scrub">Eleven Energy designs, installs and runs commercial‑grade energy systems for businesses across Africa. <span>Every project starts by measuring what your site uses, so the system we build pays for itself.</span></h2>
+        <div class="about-actions rise" style="--d:1">
+          <button class="btn-ink" type="button" data-open-modal="audit">Book an energy audit<span class="btn-ink-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+          <button class="btn-line" type="button" data-open-drawer="about">How we work</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="build">
+      <div class="build-head">
+        <p class="kicker rise">What we build most</p>
+        <h3 class="build-title words">Three systems for sites that can't afford downtime</h3>
+      </div>
+      <div class="tiles">
+        <article class="tile rise" style="--d:0;--tint:#ECF0E6">
+          <div class="tile-stage">
+            <span class="tile-num">01</span>
+            <div class="tile-art"><img class="tile-img" src="assets/render-microgrid.jpg" alt="An Eleven Energy storage container with a solar canopy on its roof" loading="lazy"><span class="tile-node" style="--x:51.9%;--y:28.7%;--n:0"><i></i><em>48 kWp solar canopy</em></span><span class="tile-node" style="--x:47.1%;--y:70.8%;--n:1"><i></i><em>1 MWh LFP storage</em></span></div>
+          </div>
+          <div class="tile-body">
+            <div class="tile-head">
+              <h4>Renewable microgrids</h4>
+              <button class="tile-go" type="button" data-open-drawer="microgrids" aria-label="How a microgrid works"><svg class="ico ico-16"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p>Solar, wind and storage on one controller, for sites the grid can't keep running.</p>
+            <p class="tile-fig"><b>&lt;<span class="cu" data-to="20">20</span> ms</b>switchover when the grid drops</p>
+          </div>
+        </article>
+        <article class="tile rise" style="--d:1;--tint:#E7EEEB">
+          <div class="tile-stage">
+            <span class="tile-num">02</span>
+            <div class="tile-art"><img class="tile-img" src="assets/render-ev.jpg" alt="An Eleven Energy DC fast charging pedestal" loading="lazy"><span class="tile-node" style="--x:50.4%;--y:23.5%;--n:0"><i></i><em>Tap-to-charge screen</em></span><span class="tile-node" style="--x:58.3%;--y:50.7%;--n:1"><i></i><em>CCS2 cable, 5 m</em></span></div>
+          </div>
+          <div class="tile-body">
+            <div class="tile-head">
+              <h4>EV charging networks</h4>
+              <button class="tile-go" type="button" data-open-drawer="ev" aria-label="Plan a charging site"><svg class="ico ico-16"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p>Level 2 and DC fast chargers on one network, for estates, offices and public parking.</p>
+            <p class="tile-fig"><b><span class="cu" data-to="60">60</span>–<span class="cu" data-to="150">150</span> kW</b>DC fast charging</p>
+          </div>
+        </article>
+        <article class="tile rise" style="--d:2;--tint:#F1EEE7">
+          <div class="tile-stage">
+            <span class="tile-num">03</span>
+            <div class="tile-art"><img class="tile-img" src="assets/render-commercial.jpg" alt="A rooftop solar array on an aluminium mounting frame" loading="lazy"><span class="tile-node" style="--x:34.6%;--y:38.1%;--n:0"><i></i><em>Bifacial 580 W modules</em></span><span class="tile-node" style="--x:56.1%;--y:66.4%;--n:1"><i></i><em>Ballasted roof frame</em></span></div>
+          </div>
+          <div class="tile-body">
+            <div class="tile-head">
+              <h4>Commercial energy</h4>
+              <button class="tile-go" type="button" data-open-drawer="commercial" aria-label="See what a retrofit saves"><svg class="ico ico-16"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p>Rooftop solar, LED retrofits and building controls that bring the monthly bill down.</p>
+            <p class="tile-fig"><b><span class="cu" data-to="30">30</span>–<span class="cu" data-to="60">60</span>%</b>lower lighting load after LED</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Our commitment ── -->
+  <section class="purpose" id="commitment" aria-labelledby="purposeTitle">
+    <div class="purpose-wrap">
+      <div class="purpose-top">
+        <p class="purpose-eyebrow"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Powering up Africa</p>
+        <span class="purpose-note">Our purpose. Your possibilities.</span>
+      </div>
+      <div class="purpose-intro">
+        <h2 id="purposeTitle">A brighter future.<span>Built from the ground up.</span></h2>
+        <p>Progress starts with dependable power. We bring renewable energy expertise to the places, people and ambitions moving Africa forward.</p>
+      </div>
+      <div class="purpose-grid">
+        <figure class="purpose-visual">
+          <div class="purpose-orbit" aria-hidden="true"></div>
+          <img src="assets/africa-energy.webp" alt="A sculptural landscape shaped like Africa, bringing together solar energy, battery storage, homes and green spaces." width="1000" height="1000" loading="lazy" decoding="async">
+          <figcaption><span class="purpose-visual-mark" aria-hidden="true"><svg class="ico"><use href="#i-grid"/></svg></span><span>One continent.<br><strong>Endless possibility.</strong></span></figcaption>
+          <span class="purpose-visual-label">A vision for better energy</span>
+        </figure>
+        <div class="purpose-explore">
+          <p class="purpose-explore-label">Better energy means something.</p>
+          <div class="purpose-principles">
+            <details class="purpose-principle" name="energy-principle" open>
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg></span><span>Accessible</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Built around your world.</h3><p>From homes and schools to commercial hubs and communities, every place has different energy needs. We start by understanding yours.</p><span class="purpose-tag">People first. Always.</span></div>
+            </details>
+            <details class="purpose-principle" name="energy-principle">
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-clipboard"/></svg></span><span>Affordable</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Good energy. Sound economics.</h3><p>Your real energy use shapes the design. We measure your loads and running costs to build a system that makes financial sense for your site.</p><span class="purpose-tag">A smarter use of your energy budget.</span></div>
+            </details>
+            <details class="purpose-principle" name="energy-principle">
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-battery"/></svg></span><span>Reliable</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Keep your plans moving.</h3><p>Solar, storage and intelligent controls work together to keep the things that matter running. Our team designs around the demands of your day.</p><span class="purpose-tag">Less interruption. More possibility.</span></div>
+            </details>
+            <details class="purpose-principle" name="energy-principle">
+              <summary><span class="purpose-icon"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg></span><span>Sustainable</span><span class="purpose-toggle" aria-hidden="true"></span></summary>
+              <div class="purpose-answer"><h3>Power today. Think beyond it.</h3><p>Make more of Africa's renewable resources, reduce dependence on diesel and build for the long term. Cleaner energy belongs in everyday life.</p><span class="purpose-tag">A lighter footprint. A lasting difference.</span></div>
+            </details>
+          </div>
+          <div class="purpose-explore-foot"><p>Decades of expertise.<br>One shared commitment to progress.</p><a href="about.html" class="purpose-about">Get to know Eleven<svg class="ico ico-16" aria-hidden="true"><use href="#i-grid"/></svg></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sol" id="solutions" aria-labelledby="solTitle">
+    <div class="fs-head">
+      <div>
+        <p class="purpose-eyebrow"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Explore our energy solutions</p>
+        <h2 id="solTitle" class="words">Six ways we power a site.</h2>
+        <a class="fs-all" href="solutions.html">View all energy solutions</a>
+      </div>
+      <div class="fs-side">
+        <p class="rise" style="--d:1">From a single rooftop to a whole clinic, designed and installed by the same engineers.</p>
+        <div class="fs-arrows">
+          <button class="fs-step" type="button" data-step="-1" aria-label="Previous solution"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button class="fs-step" type="button" data-step="1" aria-label="Next solution"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="fs-track" tabindex="0" aria-label="Energy solutions, drag or use the arrows">
+      <div class="fs-rail">
+          <article class="fs-slide is-active" data-fs="0" aria-roledescription="slide" aria-label="1 of 6: Microgrids">
+            <div class="fs-media"><img src="assets/sol-microgrids.jpg" alt="A rural clinic in northern Nigeria with a ground-mounted solar array and battery container" style="object-position:50% 60%"></div>
+            <button class="fs-open" type="button" data-fs-open="0" aria-label="Show Microgrids"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Microgrids</h3>
+                <div class="fs-more"><p class="fs-line">Solar, batteries and one controller that keep a whole site running when the grid can’t.</p></div>
+              </div>
+              <button class="fs-cta" type="button" data-open-drawer="microgrids" aria-haspopup="dialog">See what’s included<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+          </article>
+          <article class="fs-slide" data-fs="1" aria-roledescription="slide" aria-label="2 of 6: Energy storage">
+            <div class="fs-media"><img src="assets/sol-storage.jpg" alt="A technician checking battery cabinets beside a cold-storage warehouse in Lagos" style="object-position:55% 55%"></div>
+            <button class="fs-open" type="button" data-fs-open="1" aria-label="Show Energy storage"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Energy storage</h3>
+                <div class="fs-more"><p class="fs-line">Battery cabinets that carry a site through outages and the evening peak, so the generator stays off.</p></div>
+              </div>
+              <button class="fs-cta" type="button" data-open-drawer="storage" aria-haspopup="dialog">See what’s included<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+          </article>
+          <article class="fs-slide" data-fs="2" aria-roledescription="slide" aria-label="3 of 6: Home solar">
+            <div class="fs-media"><img src="assets/sol-home.jpg" alt="A family home in Lekki with rooftop solar at dusk, lights on inside" style="object-position:50% 55%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="2" aria-label="Show Home solar"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Home solar</h3>
+                <div class="fs-more"><p class="fs-line">Rooftop solar and a battery sized from the appliances you actually run after dark.</p></div>
+              </div>
+              <button class="fs-cta" type="button" data-open-drawer="home" aria-haspopup="dialog">See what’s included<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+          </article>
+          <article class="fs-slide" data-fs="3" aria-roledescription="slide" aria-label="4 of 6: SME energy">
+            <div class="fs-media"><img src="assets/sol-sme.jpg" alt="A pharmacist serving a customer in a small pharmacy powered by rooftop solar" style="object-position:50% 50%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="3" aria-label="Show SME energy"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>SME energy</h3>
+                <div class="fs-more"><p class="fs-line">Solar and storage that keep fridges, tills and lights on through every trading hour.</p></div>
+              </div>
+              <button class="fs-cta" type="button" data-open-drawer="sme" aria-haspopup="dialog">See what’s included<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+          </article>
+          <article class="fs-slide" data-fs="4" aria-roledescription="slide" aria-label="5 of 6: EV charging">
+            <div class="fs-media"><img src="assets/sol-ev.jpg" alt="An electric car charging under a solar carport in an Abuja estate" style="object-position:50% 55%;--fx:16%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="4" aria-label="Show EV charging"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>EV charging</h3>
+                <div class="fs-more"><p class="fs-line">Level 2 and DC fast chargers on one managed network, charging from your own solar where it can.</p></div>
+              </div>
+              <button class="fs-cta" type="button" data-open-drawer="ev" aria-haspopup="dialog">See what’s included<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+          </article>
+          <article class="fs-slide" data-fs="5" aria-roledescription="slide" aria-label="6 of 6: Energy audits">
+            <div class="fs-media"><img src="assets/sol-audits.jpg" alt="An engineer clipping a current clamp inside a distribution board" style="object-position:50% 45%;--fx:4%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="5" aria-label="Show Energy audits"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Energy audits</h3>
+                <div class="fs-more"><p class="fs-line">An engineer logs your boards for a week, then shows which system pays back and how fast.</p></div>
+              </div>
+              <button class="fs-cta" type="button" data-open-drawer="audits" aria-haspopup="dialog">See what’s included<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+          </article>
+          <aside class="fs-end" aria-labelledby="fsEndTitle">
+            <figure class="fs-load" aria-label="Example of a site's load over one day, peaking between 6pm and 9pm">
+              <figcaption><span>Logged load, one day</span><b>Peak 6–9pm</b></figcaption>
+              <div class="fs-load-bars" aria-hidden="true"><i style="--h:22%"></i><i style="--h:20%"></i><i style="--h:19%"></i><i style="--h:18%"></i><i style="--h:18%"></i><i style="--h:21%"></i><i style="--h:30%"></i><i style="--h:46%"></i><i style="--h:58%"></i><i style="--h:64%"></i><i style="--h:70%"></i><i style="--h:74%"></i><i style="--h:78%"></i><i style="--h:76%"></i><i style="--h:72%"></i><i style="--h:70%"></i><i style="--h:68%"></i><i style="--h:74%"></i><i style="--h:86%" class="pk"></i><i style="--h:95%" class="pk"></i><i style="--h:90%" class="pk"></i><i style="--h:66%"></i><i style="--h:40%"></i><i style="--h:27%"></i></div>
+              <div class="fs-load-axis" aria-hidden="true"><span>00:00</span><span>12:00</span><span>24:00</span></div>
+            </figure>
+            <div class="fs-end-copy">
+              <h3 id="fsEndTitle">Not sure which fits your site?</h3>
+              <p>We log your site for a week, then tell you which of the six it needs, how big, and when it pays back.</p>
+              <button class="fs-end-cta" type="button" data-open-modal="audit">Book an energy audit<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            </div>
+          </aside>
+      </div>
+      <span class="fs-cursor" aria-hidden="true">Drag</span>
+    </div>
+  </section>
+
+  <section class="talk talk-host" id="contact" aria-labelledby="talkTitle">
+    <div class="talk-inner">
+      <div class="talk-main">
+        <p class="purpose-eyebrow"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Get in touch</p>
+        <h2 id="talkTitle" class="visually-hidden">Get in touch with Eleven Energy</h2>
+        <form class="talk-form" novalidate>
+          <fieldset class="talk-topics">
+            <legend>What’s this about?</legend>
+            <div class="talk-pills"><label><input type="radio" name="topic" value="project" checked><span>A new site</span></label><label><input type="radio" name="topic" value="audit"><span>An energy audit</span></label><label><input type="radio" name="topic" value="support"><span>A system we have</span></label><label><input type="radio" name="topic" value="partner"><span>Partnerships</span></label><label><input type="radio" name="topic" value="press"><span>Press</span></label><label><input type="radio" name="topic" value="other"><span>Something else</span></label></div>
+          </fieldset>
+          <p class="talk-sentence">
+            Hi, I’m <label class="blank"><span class="visually-hidden">Your name</span><input name="name" type="text" autocomplete="name" placeholder="your name" data-req></label>.
+            <span class="talk-part" data-topic="project">We need steady power for a <span class="blank blank-pick" data-pick><button class="pick-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="What are we powering: business"><span class="pick-val">business</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-chevron"/></svg></button><span class="pick-list" role="listbox" tabindex="-1" aria-label="What are we powering" hidden><span class="pick-opt" role="option" id="pk-p_site-0" data-value="business" aria-selected="true"><span>business</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-p_site-1" data-value="school" aria-selected="false"><span>school</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-p_site-2" data-value="clinic" aria-selected="false"><span>clinic</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-p_site-3" data-value="home" aria-selected="false"><span>home</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-p_site-4" data-value="estate" aria-selected="false"><span>estate</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-p_site-5" data-value="community" aria-selected="false"><span>community</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span></span><input type="hidden" name="p_site" value="business"></span> in <label class="blank"><span class="visually-hidden">Where is the site</span><input name="p_loc" type="text" placeholder="town or city" data-req></label>, and the trouble is <label class="blank"><span class="visually-hidden">What keeps going wrong (optional)</span><input name="p_note" type="text" placeholder="the grid drops every evening"></label>.</span>
+            <span class="talk-part" data-topic="audit" hidden>I’d like an engineer to audit our <span class="blank blank-pick" data-pick><button class="pick-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="What should we audit: factory"><span class="pick-val">factory</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-chevron"/></svg></button><span class="pick-list" role="listbox" tabindex="-1" aria-label="What should we audit" hidden><span class="pick-opt" role="option" id="pk-a_site-0" data-value="factory" aria-selected="true"><span>factory</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-a_site-1" data-value="office" aria-selected="false"><span>office</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-a_site-2" data-value="school" aria-selected="false"><span>school</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-a_site-3" data-value="clinic" aria-selected="false"><span>clinic</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-a_site-4" data-value="hotel" aria-selected="false"><span>hotel</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="pk-a_site-5" data-value="home" aria-selected="false"><span>home</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span></span><input type="hidden" name="a_site" value="factory"></span> in <label class="blank"><span class="visually-hidden">Where is the site</span><input name="a_loc" type="text" placeholder="town or city" data-req></label>. The best time to visit is <label class="blank"><span class="visually-hidden">Best time to visit (optional)</span><input name="a_when" type="text" placeholder="any weekday next month"></label>.</span>
+            <span class="talk-part" data-topic="support" hidden>We have an Eleven Energy system at <label class="blank"><span class="visually-hidden">Which site</span><input name="s_site" type="text" placeholder="site name or address" data-req></label>, and since <label class="blank"><span class="visually-hidden">Since when (optional)</span><input name="s_since" type="text" placeholder="Tuesday"></label> it’s been <label class="blank"><span class="visually-hidden">What is happening</span><input name="s_issue" type="text" placeholder="showing a battery fault" data-req></label>.</span>
+            <span class="talk-part" data-topic="partner" hidden>I’m with <label class="blank"><span class="visually-hidden">Your organisation</span><input name="r_org" type="text" placeholder="organisation" data-req></label>, and we’d like to work with you on <label class="blank"><span class="visually-hidden">What you have in mind</span><input name="r_idea" type="text" placeholder="solar for 40 clinics" data-req></label>.</span>
+            <span class="talk-part" data-topic="press" hidden>I write for <label class="blank"><span class="visually-hidden">Publication</span><input name="m_pub" type="text" placeholder="publication" data-req></label> and I’m working on <label class="blank"><span class="visually-hidden">The story</span><input name="m_story" type="text" placeholder="a story on rural solar" data-req></label>. My deadline is <label class="blank"><span class="visually-hidden">Deadline (optional)</span><input name="m_when" type="text" placeholder="Friday"></label>.</span>
+            <span class="talk-part" data-topic="other" hidden>I have a question about <label class="blank"><span class="visually-hidden">Your question</span><input name="o_q" type="text" placeholder="anything at all" data-req></label>.</span>
+            Reach me on <label class="blank"><span class="visually-hidden">Phone or email</span><input name="reach" type="text" autocomplete="tel" placeholder="phone or email" data-req></label>.
+          </p>
+          <input type="hidden" name="interest" value="">
+          <div class="talk-send">
+            <button class="btn-ink" type="submit"><span class="talk-submit">Send to an engineer</span><span class="btn-ink-dot"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            <p class="talk-err" role="alert" hidden>Fill in the underlined gaps so we know who to call back.</p>
+          </div>
+          <div class="talk-done" hidden>
+            <p class="talk-sentence talk-done-text"></p>
+            <button class="talk-again" type="button">Write another message</button>
+          </div>
+        </form>
+      </div>
+      <aside class="talk-aside" aria-label="Who replies and other ways to reach us">
+        <div class="talk-who">
+          <span class="talk-who-team">Goes to</span>
+          <p class="talk-who-text">An engineer, not a sales rep. They’ll reply within one working day.</p>
+        </div>
+        <ul class="talk-lines">
+          <li><span>Call</span><a href="tel:+2349010001111">+234 901 000 1111</a><em>Mon–Fri, 8am–6pm WAT</em></li>
+          <li><span>WhatsApp</span><a href="https://wa.me/2349010001111" target="_blank" rel="noopener">Send a photo of your meter</a><em>Same number</em></li>
+          <li><span>Email</span><a href="mailto:hello@elevenenergy.com">hello@elevenenergy.com</a><em>Offices in Lagos and Abuja</em></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <div class="page-close">
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="footer-main">
+        <div class="footer-brand"><a href="#hero" aria-label="Eleven Energy home"><img src="assets/eleven-energy-logo.svg" width="183" height="46" alt="Eleven Energy" loading="lazy"></a><p>Better energy.<br>More possibility, across Africa.</p></div>
+        <nav class="footer-nav" aria-label="Company"><h3>Eleven Energy</h3><a href="#hero">Home</a><a href="#commitment">Our purpose</a><a href="about.html">About us</a><a href="solutions.html">Solutions</a><button type="button" data-open-modal="contact">Contact us</button></nav>
+        <nav class="footer-nav footer-solutions" aria-label="Energy solutions"><h3>Find your solution</h3><div><a href="solutions.html#microgrids">Microgrids</a><a href="solutions.html#storage">Energy storage</a><a href="solutions.html#audits">Energy audits</a><a href="solutions.html#home">Home solar</a><a href="solutions.html#sme">SME energy</a><a href="solutions.html#ev">EV charging</a></div></nav>
+        <div class="footer-return"><a href="#hero"><span>Back to the beginning</span><span class="footer-return-icon" aria-hidden="true"><svg class="ico"><use href="#i-sun"/></svg></span></a><p>Good energy. From here on.</p></div>
+      </div>
+      <div class="footer-bottom"><p>© <span id="copyrightYear">2026</span> Eleven Energy. All rights reserved.</p><span>Sustainable energy solutions, across Africa.</span></div>
+    </footer>
+  </div>
+
+  <!-- ── Mobile menu ── -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-head">
+      <span class="brand"><svg class="logo-mark" viewBox="0 0 183.25 46.20" aria-hidden="true" focusable="false">
+      <rect x="0.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.30"/>
+      <rect x="9.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.36"/>
+      <rect x="18.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.43"/>
+      <rect x="27.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.49"/>
+      <rect x="36.80" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.56"/>
+      <rect x="46.00" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.62"/>
+      <rect x="55.20" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.69"/>
+      <rect x="64.40" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.76"/>
+      <rect x="73.60" y="0" width="7.0" height="46.20" fill="#E2EAE4" fill-opacity="0.82"/>
+      <rect x="83.40" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+      <rect x="91.60" y="0" width="6.0" height="46.20" fill="#7CC35E"/>
+      <path fill="#7CC35E" d="M103.00,0.00h2.35v21.00h-2.35zM103.00,0.00h11.00v2.35h-11.00zM103.00,9.32h9.80v2.35h-9.80zM103.00,18.65h11.00v2.35h-11.00zM116.10,0.00h2.35v21.00h-2.35zM116.10,18.65h10.50v2.35h-10.50zM128.70,0.00h2.35v21.00h-2.35zM128.70,0.00h11.00v2.35h-11.00zM128.70,9.32h9.80v2.35h-9.80zM128.70,18.65h11.00v2.35h-11.00zM141.80,0.00 L144.45,0.00 L148.30,16.80 L152.15,0.00 L154.80,0.00 L149.82,21.00 L146.77,21.00zM156.90,0.00h2.35v21.00h-2.35zM156.90,0.00h11.00v2.35h-11.00zM156.90,9.32h9.80v2.35h-9.80zM156.90,18.65h11.00v2.35h-11.00zM170.00,0.00h2.35v21.00h-2.35zM180.65,0.00h2.35v21.00h-2.35zM170.00,0.00 L172.95,0.00 L183.00,21.00 L180.05,21.00zM103.00,25.20h2.35v21.00h-2.35zM103.00,25.20h11.00v2.35h-11.00zM103.00,34.53h9.80v2.35h-9.80zM103.00,43.85h11.00v2.35h-11.00zM115.25,25.20h2.35v21.00h-2.35zM125.90,25.20h2.35v21.00h-2.35zM115.25,25.20 L118.20,25.20 L128.25,46.20 L125.30,46.20zM129.50,25.20h2.35v21.00h-2.35zM129.50,25.20h11.00v2.35h-11.00zM129.50,34.53h9.80v2.35h-9.80zM129.50,43.85h11.00v2.35h-11.00zM141.75,25.20h2.35v21.00h-2.35zM147.00,35.92 L149.75,35.92 L154.25,46.20 L151.50,46.20zM166.65,35.90h2.35v6.71h-2.35zM162.05,35.90h6.95v2.35h-6.95zM170.25,25.20 L172.90,25.20 L176.75,33.10 L180.60,25.20 L183.25,25.20 L177.93,36.30 L177.93,46.20 L175.57,46.20 L175.57,36.30z"/>
+      <path fill="none" stroke="#7CC35E" stroke-width="2.35" stroke-linejoin="miter" d="M144.10,26.38 H148.19 A4.29,4.29 0 0 1 148.19,34.95 H144.10 M166.39,29.46 A5.58,9.32 0 1 0 167.82,36.70"/>
+    </svg></span>
+      <button class="glass-btn glass-btn-icon" type="button" data-close aria-label="Close menu"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <nav class="sheet-nav" aria-label="Mobile">
+      <a href="index.html" data-close>Home</a>
+      <a href="about.html">About</a>
+      <a href="solutions.html">Solutions</a>
+      <button type="button" data-open-modal="contact">Contact</button>
+    </nav>
+    <button class="btn-volt btn-block" type="button" data-open-modal="audit">Book an energy audit<span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+  </div>
+
+  <!-- ── Solution drawer ── -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle" role="dialog" aria-modal="true">
+    <div class="drawer-head">
+      <span class="drawer-eyebrow" id="drawerEyebrow"></span>
+      <button class="glass-btn glass-btn-icon glass-btn-sm" type="button" data-close aria-label="Close"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-badge" id="drawerBadge"></div>
+      <h2 id="drawerTitle"></h2>
+      <p class="drawer-lede" id="drawerLede"></p>
+      <div class="drawer-stats" id="drawerStats"></div>
+      <h3>What we install</h3>
+      <ul class="drawer-list" id="drawerList"></ul>
+      <h3>Where it works best</h3>
+      <div class="drawer-sites" id="drawerSites"></div>
+    </div>
+    <div class="drawer-foot">
+      <button class="btn-volt btn-block" type="button" id="drawerCta"><span>Book an energy audit</span><span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
+    </div>
+  </aside>
+
+  <!-- ── Get in touch: the same sentence form, in a modal ── -->
+  <div class="tmodal" id="talkModal" role="dialog" aria-modal="true" aria-labelledby="tmTitle" aria-hidden="true">
+    <div class="tm-card talk-host">
+      <div class="tm-head">
+        <p class="purpose-eyebrow" id="tmTitle"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Talk to an engineer</p>
+        <button class="tm-close" type="button" data-close aria-label="Close"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
+      </div>
+      <p class="tm-about" hidden><span>Enquiry about</span><b></b></p>
+        <form class="talk-form" novalidate>
+          <fieldset class="talk-topics">
+            <legend>What’s this about?</legend>
+            <div class="talk-pills"><label><input type="radio" name="topic" value="project" checked><span>A new site</span></label><label><input type="radio" name="topic" value="audit"><span>An energy audit</span></label><label><input type="radio" name="topic" value="support"><span>A system we have</span></label><label><input type="radio" name="topic" value="partner"><span>Partnerships</span></label><label><input type="radio" name="topic" value="press"><span>Press</span></label><label><input type="radio" name="topic" value="other"><span>Something else</span></label></div>
+          </fieldset>
+          <p class="talk-sentence">
+            Hi, I’m <label class="blank"><span class="visually-hidden">Your name</span><input name="name" type="text" autocomplete="name" placeholder="your name" data-req></label>.
+            <span class="talk-part" data-topic="project">We need steady power for a <span class="blank blank-pick" data-pick><button class="pick-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="What are we powering: business"><span class="pick-val">business</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-chevron"/></svg></button><span class="pick-list" role="listbox" tabindex="-1" aria-label="What are we powering" hidden><span class="pick-opt" role="option" id="tm-pk-p_site-0" data-value="business" aria-selected="true"><span>business</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-p_site-1" data-value="school" aria-selected="false"><span>school</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-p_site-2" data-value="clinic" aria-selected="false"><span>clinic</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-p_site-3" data-value="home" aria-selected="false"><span>home</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-p_site-4" data-value="estate" aria-selected="false"><span>estate</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-p_site-5" data-value="community" aria-selected="false"><span>community</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span></span><input type="hidden" name="p_site" value="business"></span> in <label class="blank"><span class="visually-hidden">Where is the site</span><input name="p_loc" type="text" placeholder="town or city" data-req></label>, and the trouble is <label class="blank"><span class="visually-hidden">What keeps going wrong (optional)</span><input name="p_note" type="text" placeholder="the grid drops every evening"></label>.</span>
+            <span class="talk-part" data-topic="audit" hidden>I’d like an engineer to audit our <span class="blank blank-pick" data-pick><button class="pick-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="What should we audit: factory"><span class="pick-val">factory</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-chevron"/></svg></button><span class="pick-list" role="listbox" tabindex="-1" aria-label="What should we audit" hidden><span class="pick-opt" role="option" id="tm-pk-a_site-0" data-value="factory" aria-selected="true"><span>factory</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-a_site-1" data-value="office" aria-selected="false"><span>office</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-a_site-2" data-value="school" aria-selected="false"><span>school</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-a_site-3" data-value="clinic" aria-selected="false"><span>clinic</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-a_site-4" data-value="hotel" aria-selected="false"><span>hotel</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span><span class="pick-opt" role="option" id="tm-pk-a_site-5" data-value="home" aria-selected="false"><span>home</span><svg class="ico ico-16" aria-hidden="true"><use href="#i-check"/></svg></span></span><input type="hidden" name="a_site" value="factory"></span> in <label class="blank"><span class="visually-hidden">Where is the site</span><input name="a_loc" type="text" placeholder="town or city" data-req></label>. The best time to visit is <label class="blank"><span class="visually-hidden">Best time to visit (optional)</span><input name="a_when" type="text" placeholder="any weekday next month"></label>.</span>
+            <span class="talk-part" data-topic="support" hidden>We have an Eleven Energy system at <label class="blank"><span class="visually-hidden">Which site</span><input name="s_site" type="text" placeholder="site name or address" data-req></label>, and since <label class="blank"><span class="visually-hidden">Since when (optional)</span><input name="s_since" type="text" placeholder="Tuesday"></label> it’s been <label class="blank"><span class="visually-hidden">What is happening</span><input name="s_issue" type="text" placeholder="showing a battery fault" data-req></label>.</span>
+            <span class="talk-part" data-topic="partner" hidden>I’m with <label class="blank"><span class="visually-hidden">Your organisation</span><input name="r_org" type="text" placeholder="organisation" data-req></label>, and we’d like to work with you on <label class="blank"><span class="visually-hidden">What you have in mind</span><input name="r_idea" type="text" placeholder="solar for 40 clinics" data-req></label>.</span>
+            <span class="talk-part" data-topic="press" hidden>I write for <label class="blank"><span class="visually-hidden">Publication</span><input name="m_pub" type="text" placeholder="publication" data-req></label> and I’m working on <label class="blank"><span class="visually-hidden">The story</span><input name="m_story" type="text" placeholder="a story on rural solar" data-req></label>. My deadline is <label class="blank"><span class="visually-hidden">Deadline (optional)</span><input name="m_when" type="text" placeholder="Friday"></label>.</span>
+            <span class="talk-part" data-topic="other" hidden>I have a question about <label class="blank"><span class="visually-hidden">Your question</span><input name="o_q" type="text" placeholder="anything at all" data-req></label>.</span>
+            Reach me on <label class="blank"><span class="visually-hidden">Phone or email</span><input name="reach" type="text" autocomplete="tel" placeholder="phone or email" data-req></label>.
+          </p>
+          <input type="hidden" name="interest" value="">
+          <div class="talk-send">
+            <button class="btn-ink" type="submit"><span class="talk-submit">Send to an engineer</span><span class="btn-ink-dot"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            <p class="talk-err" role="alert" hidden>Fill in the underlined gaps so we know who to call back.</p>
+          </div>
+          <div class="talk-done" hidden>
+            <p class="talk-sentence talk-done-text"></p>
+            <button class="talk-again" type="button">Write another message</button>
+          </div>
+        </form>
+      <div class="tm-foot">
+        <div class="tm-who"><span class="talk-who-team">Goes to an engineer</span><p class="talk-who-text">An engineer, not a sales rep. They’ll reply within one working day.</p></div>
+        <ul class="tm-lines">
+          <li><svg class="ico ico-16" aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+2349010001111">+234 901 000 1111</a></li>
+          <li><svg class="ico ico-16" aria-hidden="true"><use href="#i-chat"/></svg><a href="https://wa.me/2349010001111" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><svg class="ico ico-16" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:hello@elevenenergy.com">hello@elevenenergy.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <nav class="hv-switch" aria-label="Hero options"><span>Hero options</span><a href="index.html">Original<i></i></a><a href="hero-a.html">A<i> · Hear the difference</i></a><a href="hero-b.html" aria-current="page">B<i> · Cut the grid</i></a><a href="hero-c.html">C<i> · Up NEPA</i></a></nav>
+  <script src="script.js"></script>
+  <script src="hero-variants.js"></script>
+</body>
+</html>

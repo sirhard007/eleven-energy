@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="hero-nepa.css">
 </head>
 <body>
 
@@ -32,6 +33,7 @@
       <symbol id="i-chat" viewBox="0 0 20 20"><path d="M10 3.2a6.8 6.8 0 0 0-5.9 10.2L3.2 16.8l3.5-.9A6.8 6.8 0 1 0 10 3.2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.6 8.4c.3 1.6 1.9 3.3 3.8 3.9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
       <symbol id="i-mail" viewBox="0 0 20 20"><rect x="2.8" y="4.4" width="14.4" height="11.2" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m3.6 5.6 6.4 5 6.4-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="i-check" viewBox="0 0 20 20"><path d="m4.6 10.4 3.4 3.4 7.4-7.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-power" viewBox="0 0 20 20"><path d="M10 3.2v6.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M6.2 5.8a6 6 0 1 0 7.6 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
     </defs>
   </svg>
 
@@ -69,53 +71,29 @@
     </div>
   </header>
 
-  <section class="hero" id="hero" aria-label="Eleven Energy">
-    <div class="hero-art" id="heroArt" data-top="0.498" data-base="0.732">
-      <img id="heroImg" src="assets/hero-tall.jpg" alt="An Eleven Energy storage unit and EV charger lit at blue hour on the open savanna" draggable="false">
-    </div>
-    <div class="hero-shade" aria-hidden="true"></div>
-    <div class="hero-fade" aria-hidden="true"></div>
-
-    <!-- ── Copy ── -->
-    <div class="hero-copy">
+  <!-- Hero: "Up NEPA" (hero-nepa.css, hero-nepa.js). The previous photo hero is in snippets/hero-original.html. -->
+  <section class="hero hv hv-bulb" id="hero" aria-label="Eleven Energy" data-state="grid">
+    <div class="hv-copy hvl-copy">
       <p class="tag reveal" style="--d:0">
         <span class="tag-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-        <span>Sustainable energy solutions</span>
+        <span>Solar and storage</span>
         <span class="tag-sep" aria-hidden="true"></span>
-        <span class="tag-soft">Across Africa</span>
+        <span class="tag-soft">Homes and small businesses</span>
       </p>
-
-      <h1 class="headline" id="headline">
-        <span class="hl-line">Powering up Africa<span class="inline-art" aria-hidden="true"><img id="inlineImg" src="assets/inline.jpg" alt="" draggable="false"></span></span>
-        <span class="hl-line">with energy that stays on</span>
-      </h1>
-
-      <p class="lede reveal" style="--d:2">Microgrids, battery storage and solar for businesses and communities that can't afford another outage.</p>
-
+      <h1 class="hv-title" id="headline"><span class="hl-line">Stop waiting for</span><span class="hl-line">“Up NEPA!”</span></h1>
+      <p class="lede reveal" style="--d:2">Eleven Energy designs, installs and runs solar and battery systems for homes, clinics and businesses across Nigeria. When the grid goes, your power doesn’t.</p>
       <div class="cta-row reveal" style="--d:3">
         <button class="btn-volt" type="button" data-open-modal="audit">Book an energy audit<span class="btn-volt-dot"><svg class="ico ico-16"><use href="#i-arrow"/></svg></span></button>
-        <button class="btn-quiet" type="button" data-open-drawer="microgrids">See how a microgrid works</button>
+        <button class="btn-quiet" type="button" data-open-modal="contact">Solar for your home</button>
       </div>
     </div>
-
-    <!-- ── Callouts: x/y are fractions of hero.jpg ── -->
-    <svg class="node-lines" id="nodeLines" aria-hidden="true"></svg>
-    <div class="nodes" id="nodes">
-      <div class="node" data-x="0.566" data-y="0.563" data-side="right" data-reach="170" data-lift="-58">
-        <button class="node-dot" type="button" aria-label="Solar canopy details"></button>
-        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-sun"/></svg></span><span><b class="num">48 kWp</b> solar canopy</span></div>
-      </div>
-      <div class="node" data-x="0.684" data-y="0.659" data-side="right" data-reach="130" data-lift="20">
-        <button class="node-dot" type="button" aria-label="Battery storage details"></button>
-        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-battery"/></svg></span><span><b class="num">1 MWh</b> LFP storage</span></div>
-      </div>
-      <div class="node" data-x="0.292" data-y="0.643" data-side="left" data-reach="70" data-lift="-44">
-        <button class="node-dot" type="button" aria-label="EV charger details"></button>
-        <div class="chip"><span class="chip-ico"><svg class="ico ico-16"><use href="#i-plug"/></svg></span><span><b class="num">60 kW</b> DC fast charger</span></div>
-      </div>
+    <canvas class="hvl-canvas" aria-hidden="true"></canvas>
+    <button class="hvl-grab" type="button" aria-label="Swing the bulb with the arrow keys"></button>
+    <span class="hvl-hint" aria-hidden="true">Grab the bulb</span>
+    <div class="hvl-panel">
+      <p class="hvl-status" aria-live="polite"><i aria-hidden="true"></i><span>Grid on · Surulere, 20:12</span></p>
+      <button class="hvl-switch" type="button"><svg class="ico" aria-hidden="true"><use href="#i-power"/></svg><span class="hvl-switch-label">Switch to Eleven</span></button>
     </div>
-
-    <div class="calibrate" id="calibrate" hidden><b>Node calibration</b><span id="calibrateOut">Click the image to read a point.</span></div>
   </section>
 
   <!-- ── About ── -->
@@ -480,5 +458,6 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="hero-nepa.js"></script>
 </body>
 </html>
