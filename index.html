@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="hero-nepa.css?v=5">
+  <link rel="stylesheet" href="hero-nepa.css?v=6">
 </head>
 <body>
 
@@ -74,10 +74,22 @@
   <!-- Hero: "Up NEPA" (hero-nepa.css, hero-nepa.js). The previous photo hero is in snippets/hero-original.html. -->
   <section class="hero hv hv-bulb" id="hero" aria-label="Eleven Energy" data-state="grid">
     <div class="hvl-film" aria-hidden="true">
-      <img class="hvl-film-dusk" src="assets/hero-home-dusk.webp" alt="" fetchpriority="high">
-      <img class="hvl-film-lit" src="assets/hero-home-lit.webp" alt="">
-      <img class="hvl-film-entry" src="assets/hero-home-entry.webp" alt="">
-      <img class="hvl-film-room" src="assets/hero-home-room.webp" alt="">
+      <picture class="hvl-film-dusk">
+        <source media="(max-width: 700px) and (orientation: portrait)" srcset="assets/hero-home-dusk-portrait.webp">
+        <img src="assets/hero-home-dusk.webp?v=hd" alt="" fetchpriority="high">
+      </picture>
+      <picture class="hvl-film-lit">
+        <source media="(max-width: 700px) and (orientation: portrait)" srcset="assets/hero-home-lit-portrait.webp">
+        <img src="assets/hero-home-lit.webp?v=hd" alt="">
+      </picture>
+      <picture class="hvl-film-entry">
+        <source media="(max-width: 700px) and (orientation: portrait)" srcset="assets/hero-home-entry-portrait.webp">
+        <img src="assets/hero-home-entry.webp?v=hd" alt="">
+      </picture>
+      <picture class="hvl-film-room">
+        <source media="(max-width: 700px) and (orientation: portrait)" srcset="assets/hero-home-room-portrait.webp">
+        <img src="assets/hero-home-room.webp?v=hd" alt="">
+      </picture>
     </div>
     <div class="hv-copy hvl-copy">
       <p class="tag reveal" style="--d:0">
