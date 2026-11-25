@@ -214,21 +214,37 @@
     sw.addEventListener("click", () => (state === "eleven" ? toGrid() : toEleven()));
 
     // grabbing the bulb
+    let activePointer = null;
+    const lightBulb = () => {
+      hint.classList.add("is-gone");
+      if (state !== "eleven") toEleven();
+    };
     const at = e => { const r = L.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    grab.addEventListener("click", lightBulb);
     grab.addEventListener("pointerdown", e => {
-      e.preventDefault(); held = true; grab.classList.add("is-held"); hint.classList.add("is-gone");
-      try { grab.setPointerCapture(e.pointerId); } catch (_) {}
+      if (e.button !== 0 || activePointer !== null) return;
+      activePointer = e.pointerId;
+      held = true;
+      grab.classList.add("is-held");
+      grab.setPointerCapture(e.pointerId);
+      lightBulb();
     });
     grab.addEventListener("pointermove", e => {
-      if (!held) return;
+      if (e.pointerId !== activePointer) return;
       const b = pts[N - 1], [x, y] = at(e);
       b.px = b.x; b.py = b.y;
       b.x = clamp(x, 20, W - 20); b.y = clamp(y - 22, 30, H - 120);
       if (still) draw(performance.now());
     });
-    const letGo = () => { held = false; grab.classList.remove("is-held"); };
+    const letGo = e => {
+      if (e.pointerId !== activePointer) return;
+      activePointer = null;
+      held = false;
+      grab.classList.remove("is-held");
+    };
     grab.addEventListener("pointerup", letGo);
     grab.addEventListener("pointercancel", letGo);
+    grab.addEventListener("lostpointercapture", letGo);
     grab.addEventListener("keydown", e => {
       const k = { ArrowLeft: -14, ArrowRight: 14 }[e.key];
       if (k) { e.preventDefault(); pts[N - 1].px -= k; hint.classList.add("is-gone"); }
@@ -238,6 +254,7 @@
     window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { size(); if (still) draw(performance.now()); }, 120); });
     const go = () => {
       size();
+      grab.disabled = false;
       L.dataset.state = "grid";
       say("Grid on · Surulere, 20:12");
       if (still) { draw(performance.now()); return; }
