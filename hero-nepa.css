@@ -22,7 +22,42 @@
 /* ───────── C · Up NEPA ───────── */
 .hv-bulb { background: #040A08; }
 .hv-bulb::after { z-index: 8; }
-.hv-bulb .hvl-copy { z-index: auto; padding-top: clamp(130px, 24vh, 280px); }
+.hv-bulb .hvl-copy { z-index: 5; padding-top: clamp(130px, 24vh, 280px); }
+.hvl-film { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.hvl-film img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+.hvl-film .hvl-film-dusk {
+  opacity: .58;
+  mask-image: linear-gradient(#000 20%, rgba(0, 0, 0, .22) 59%, transparent 90%);
+}
+.hvl-film::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(4, 10, 8, .48), rgba(4, 10, 8, .68) 48%, rgba(4, 10, 8, .78) 100%);
+}
+.hvl-film-lit { transform-origin: 57% 70%; }
+.hvl-film-entry { transform-origin: 60% 66%; }
+.hvl-film-room { transform-origin: 55% 56%; }
+.hv-bulb[data-state="eleven"] .hvl-film-lit { animation: hvl-film-light 8s both; }
+.hv-bulb[data-state="eleven"] .hvl-film-entry { animation: hvl-film-enter 8s both; }
+.hv-bulb[data-state="eleven"] .hvl-film-room { animation: hvl-film-arrive 8s both; }
+@keyframes hvl-film-light {
+  0% { opacity: 0; }
+  10%, 24% { opacity: 1; transform: scale(1); }
+  58%, 100% { opacity: 1; transform: scale(1.32); }
+}
+@keyframes hvl-film-enter {
+  40% { opacity: 0; transform: scale(1); }
+  55% { opacity: 1; transform: scale(1.03); }
+  83%, 100% { opacity: 1; transform: scale(1.23); }
+}
+@keyframes hvl-film-arrive {
+  68% { opacity: 0; transform: scale(1); }
+  84% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1.07); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hv-bulb[data-state="eleven"] .hvl-film img { animation: none; }
+  .hv-bulb[data-state="eleven"] .hvl-film-room { opacity: 1; }
+}
 .hvl-canvas { position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; pointer-events: none; }
 .hv-bulb .cta-row { position: relative; z-index: 7; }
 .hvl-grab {
@@ -86,6 +121,9 @@
   .hv-title { font-size: clamp(38px, 4.1vw, 56px); }
 }
 @media (max-width: 700px) {
+  .hvl-film img { object-position: 58% center; }
+  .hvl-film .hvl-film-dusk,
+  .hvl-film .hvl-film-lit { object-position: 66% center; }
   /* the status bar sits under the buttons: status on top, the switch below, kept tight */
   .hvl-panel { position: relative; left: auto; bottom: auto; transform: none; max-width: none; margin: 14px var(--gutter) 64px; flex-direction: column; align-items: stretch; gap: 8px; padding: 10px; border-radius: 18px; }
   .hv-bulb .hvl-copy { padding-top: 150px; }

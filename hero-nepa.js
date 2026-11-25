@@ -94,15 +94,8 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.globalCompositeOperation = "source-over";
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "rgba(3,8,6,0.965)";
-      ctx.fillRect(0, 0, W, H);
       const R = Math.max(W, H) * 0.62 * reach, Lc = Math.min(1, light);
       if (light > 0.01) {
-        ctx.globalCompositeOperation = "destination-out";
-        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, R);
-        g.addColorStop(0, `rgba(0,0,0,${Lc})`); g.addColorStop(0.32, `rgba(0,0,0,${0.94 * Lc})`);
-        g.addColorStop(0.62, `rgba(0,0,0,${0.5 * Lc})`); g.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
         ctx.globalCompositeOperation = "lighter";
         const w = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, R * 0.55);
         w.addColorStop(0, `rgba(${col},${0.22 * light})`); w.addColorStop(1, `rgba(${col},0)`);
