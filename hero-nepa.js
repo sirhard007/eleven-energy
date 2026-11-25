@@ -149,8 +149,8 @@
       ctx.beginPath(); ctx.moveTo(-4, 14); ctx.lineTo(-3, 24); ctx.lineTo(-1, 21); ctx.lineTo(1, 25); ctx.lineTo(3, 21); ctx.lineTo(4, 14); ctx.stroke();
       ctx.shadowBlur = 0;
       ctx.restore();
-      grab.style.left = `${b.x}px`; grab.style.top = `${b.y + 22}px`;
-      hint.style.left = `${b.x}px`; hint.style.top = `${b.y + 26}px`;
+      grab.style.left = `${b.x - Math.sin(ang) * 28}px`;
+      grab.style.top = `${b.y + Math.cos(ang) * 28}px`;
     }
     function tick(now) {
       raf = requestAnimationFrame(tick);
@@ -215,6 +215,7 @@
 
     // grabbing the bulb
     let activePointer = null;
+    let offsetX = 0, offsetY = 0;
     const lightBulb = () => {
       hint.classList.add("is-gone");
       if (state !== "eleven") toEleven();
@@ -223,17 +224,20 @@
     grab.addEventListener("click", lightBulb);
     grab.addEventListener("pointerdown", e => {
       if (e.button !== 0 || activePointer !== null) return;
+      lightBulb();
+      if (e.target === hint) return;
+      const b = pts[N - 1], [x, y] = at(e);
+      offsetX = x - b.x; offsetY = y - b.y;
       activePointer = e.pointerId;
       held = true;
       grab.classList.add("is-held");
-      grab.setPointerCapture(e.pointerId);
-      lightBulb();
+      grab.setPointerCapture?.(e.pointerId);
     });
     grab.addEventListener("pointermove", e => {
       if (e.pointerId !== activePointer) return;
       const b = pts[N - 1], [x, y] = at(e);
       b.px = b.x; b.py = b.y;
-      b.x = clamp(x, 20, W - 20); b.y = clamp(y - 22, 30, H - 120);
+      b.x = clamp(x - offsetX, 20, W - 20); b.y = clamp(y - offsetY, 30, H - 120);
       if (still) draw(performance.now());
     });
     const letGo = e => {
@@ -242,8 +246,8 @@
       held = false;
       grab.classList.remove("is-held");
     };
-    grab.addEventListener("pointerup", letGo);
-    grab.addEventListener("pointercancel", letGo);
+    window.addEventListener("pointerup", letGo);
+    window.addEventListener("pointercancel", letGo);
     grab.addEventListener("lostpointercapture", letGo);
     grab.addEventListener("keydown", e => {
       const k = { ArrowLeft: -14, ArrowRight: 14 }[e.key];
@@ -254,14 +258,15 @@
     window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { size(); if (still) draw(performance.now()); }, 120); });
     const go = () => {
       size();
-      grab.disabled = false;
+      draw(performance.now());
+      grab.hidden = false;
       L.dataset.state = "grid";
       say("Grid on · Surulere, 20:12");
-      if (still) { draw(performance.now()); return; }
+      if (still) return;
       pts[N - 1].px -= 26; // a small push so it's already swinging
       raf = requestAnimationFrame(tick);
       outage(3200);
     };
-    (document.fonts?.ready || Promise.resolve()).then(() => requestAnimationFrame(go));
+    requestAnimationFrame(go);
   }
 })();
