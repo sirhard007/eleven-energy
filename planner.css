@@ -4,6 +4,20 @@
     linear-gradient(90deg, rgba(7, 19, 15, .55), transparent 80%);
 }
 .planner-page { padding-bottom: clamp(64px, 10vw, 130px); scroll-margin-top: 84px; }
+.energy-tabs {
+  display: flex; gap: clamp(10px, 3vw, 32px); margin-bottom: clamp(22px, 3vw, 36px);
+  border-bottom: 1px solid var(--rule);
+}
+.energy-tabs button {
+  min-height: 48px; margin-bottom: -1px; padding: 0 clamp(10px, 2vw, 22px);
+  border-bottom: 2px solid transparent; color: var(--text-2); font-size: 14px;
+}
+.energy-tabs button:hover { color: var(--leaf); }
+.energy-tabs button[aria-selected="true"] { border-color: var(--leaf); color: var(--text); font-weight: 700; }
+.energy-tabs button:focus-visible { outline-color: var(--leaf); }
+.planner-workbench[hidden] { display: none; }
+.planner-workbench { scroll-margin-top: 172px; }
+#roof-title { margin-top: 10px; }
 .planner-workbench {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(290px, 32%);
   gap: clamp(28px, 3.6vw, 50px); align-items: start;
@@ -167,6 +181,7 @@
   .planner-catalog-search { grid-template-columns: 1fr; }
 }
 @media print {
+  .energy-tabs, .planner-workbench[hidden] { display: none; }
   .nav, .planner-hero, .page-close, .planner-pick, .planner-page button, .planner-method, .planner-feedback, .planner-quick-add, .planner-catalog-search, .planner-estimate-link { display: none; }
   .planner-page { padding: 0; }
   .planner-workbench { display: block; }

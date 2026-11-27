@@ -36,6 +36,67 @@
     return Math.max(Number(field.min || 0), Math.min(Number(field.max || Infinity), value));
   }
 
+  const tabs = [...document.querySelectorAll(".energy-tabs [role=tab]:not([hidden])")];
+  const panels = tabs.map(tab => $(tab.getAttribute("aria-controls")));
+
+  function selectTool(index, navigate = false) {
+    tabs.forEach((tab, position) => {
+      const active = position === index;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+      panels[position].hidden = !active;
+    });
+    if (navigate) {
+      const hash = `#${panels[index].id}`;
+      if (location.hash !== hash) history.pushState(null, "", hash);
+    }
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectTool(index, true));
+    tab.addEventListener("keydown", event => {
+      const positions = {
+        ArrowLeft: (index + tabs.length - 1) % tabs.length,
+        ArrowRight: (index + 1) % tabs.length,
+        Home: 0,
+        End: tabs.length - 1,
+      };
+      const next = positions[event.key];
+      if (next === undefined) return;
+      event.preventDefault();
+      selectTool(next, true);
+      tabs[next].focus();
+    });
+  });
+
+  function restoreTool() {
+    const index = panels.findIndex(panel => `#${panel.id}` === location.hash);
+    if (index < 0 && location.hash === "#roof-explorer") history.replaceState(null, "", "#planner");
+    selectTool(Math.max(0, index));
+  }
+
+  window.addEventListener("hashchange", restoreTool);
+  restoreTool();
+
+  const roofInputs = $("roof-inputs");
+  function updateRoof() {
+    const fields = Object.fromEntries([...roofInputs.querySelectorAll("input, select")].map(field => [field.name, number(field)]));
+    const area = fields.length * fields.width;
+    const usableArea = area * fields.usable / 100;
+    const panels = Math.floor(usableArea / moduleArea[fields.module]);
+    const capacity = panels * fields.module / 1000;
+    const daily = capacity * fields.sun * fields.efficiency / 100;
+    $("roof-area").textContent = `${format.format(area)} m²`;
+    $("roof-usable").textContent = `${format.format(usableArea)} m²`;
+    $("roof-panels").textContent = format.format(panels);
+    $("roof-capacity").textContent = `${format.format(capacity)} kWp`;
+    $("roof-daily").textContent = format.format(daily);
+    $("roof-monthly").textContent = `${format.format(daily * 30)} kWh`;
+  }
+
+  roofInputs.addEventListener("input", updateRoof);
+  updateRoof();
+
   function readRow(row) {
     const get = name => row.querySelector(`[name="${name}"]`);
     return {
