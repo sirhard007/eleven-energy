@@ -189,3 +189,99 @@
   .planner-appliance, .planner-blueprint { break-inside: avoid; }
   .planner-row-settings::details-content { content-visibility: visible; }
 }
+
+.roof-explorer {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: "intro intro" "map map" "settings potential" "season season" "method method";
+  row-gap: 26px;
+}
+.roof-intro { grid-area: intro; }
+.roof-map-section { grid-area: map; min-width: 0; }
+.roof-settings { grid-area: settings; }
+.roof-potential { grid-area: potential; position: static; }
+.roof-season { grid-area: season; }
+.roof-method { grid-area: method; }
+.roof-search { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.roof-search-field { position: relative; min-width: 0; z-index: 6; }
+.roof-search-field label { display: block; }
+.roof-suggestions {
+  position: absolute; inset: calc(100% + 6px) 0 auto; margin: 0; padding: 5px;
+  max-height: min(260px, 40vh); overflow: auto; list-style: none;
+  border: 1px solid #bfcfc2; border-radius: 14px; background: #fff;
+  box-shadow: 0 14px 32px rgba(15, 26, 21, .14);
+}
+.roof-suggestions li {
+  display: flex; align-items: center; min-height: 44px; padding: 9px 12px;
+  border-radius: 8px; color: var(--text); font-size: 14px; cursor: pointer;
+}
+.roof-suggestions li:is(:hover, [aria-selected="true"]) { background: #edf3e9; color: #284c2b; }
+.roof-search input, .roof-coordinates textarea {
+  width: 100%; border: 1px solid var(--rule); border-radius: 10px; background: #fff; color: var(--text); font: inherit;
+}
+.roof-search input { min-height: 52px; padding: 10px 14px; }
+.roof-coordinates textarea { display: block; margin: 8px 0 12px; padding: 10px 12px; resize: vertical; }
+.roof-coordinates label { display: block; margin-top: 12px; }
+.roof-map-meta, .roof-map-toolbar, .roof-season-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 14px; }
+.roof-map-meta { min-height: 55px; padding: 6px 0; }
+.roof-map-meta p { margin: 0; color: var(--text-2); font-size: 13px; }
+.roof-map-wrap { position: relative; isolation: isolate; overflow: hidden; border: 1px solid var(--rule); border-radius: 14px; background: #e5ede4; }
+.roof-map { height: clamp(350px, 52vh, 540px); background: #e5ede4; }
+.roof-map.is-drawing { cursor: crosshair; }
+.roof-map-status {
+  position: absolute; z-index: 750; top: 12px; left: 50%; transform: translateX(-50%); width: max-content; max-width: 72%;
+  margin: 0; padding: 8px 12px; border-radius: 8px; background: #fff; color: var(--text); font-size: 13px; text-align: center;
+}
+.roof-map-switch { display: flex; padding: 3px; border: 1px solid var(--rule); border-radius: var(--r-pill); background: #f0f4ee; }
+.roof-map-switch button { min-height: 36px; padding: 5px 12px; border-radius: var(--r-pill); color: var(--text-2); font-size: 13px; white-space: nowrap; }
+.roof-map-switch button[aria-pressed="true"] { background: #fff; color: #2e5e17; font-weight: 700; box-shadow: 0 1px 4px rgba(15, 26, 21, .12); }
+.roof-map-toolbar { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.roof-map-toolbar .roof-map-switch { margin-inline-start: auto; }
+.roof-map-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 5px 16px;
+}
+.roof-map-actions .btn-line { height: 44px; padding-inline: 16px; font-size: 13px; }
+.roof-map-actions button[aria-pressed="true"] { background: #eaf3d3; }
+.roof-settings, .roof-season { border-top: 1px solid var(--rule); padding-top: 20px; }
+.roof-settings h3, .roof-season h3 { margin: 0; }
+.roof-footprint { margin: 16px 0; color: var(--text-2); font-size: 13px; }
+.roof-footprint output { display: block; color: var(--text); font-size: 29px; font-weight: 500; letter-spacing: -.035em; }
+.roof-area-slider { display: block; }
+.roof-area-slider output { float: right; color: var(--leaf); font-weight: 700; }
+.roof-area-slider input { display: block; width: 100%; margin: 7px 0 0; accent-color: var(--leaf); min-height: 28px; }
+.roof-settings .planner-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.roof-settings .planner-fields > :last-child { grid-column: 1 / -1; }
+.roof-settings .btn-ink { max-width: 100%; height: auto; min-height: 52px; padding-block: 6px; text-align: left; }
+.roof-potential .planner-actions { margin-top: 18px; }
+.roof-season-head label { max-width: 100%; }
+.roof-chart {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(3px, .8vw, 10px);
+  list-style: none; margin: 20px 0 0; padding: 0; border-bottom: 1px solid var(--rule);
+}
+.roof-chart[hidden] { display: none; }
+.roof-chart button { width: 100%; display: grid; grid-template-rows: 140px auto; gap: 6px; align-items: end; text-align: center; color: var(--text-2); font-size: 12px; }
+.roof-chart-bar {
+  display: block; width: 100%; height: var(--roof-bar); min-height: 1px; background: #78a55e; border-radius: 4px 4px 0 0;
+}
+.roof-chart li:nth-child(4n + 1) .roof-chart-bar, .roof-chart li:nth-child(4n + 2) .roof-chart-bar { background: #517d45; }
+.roof-chart button:is(:hover, :focus-visible) .roof-chart-bar { background: var(--leaf); }
+.roof-chart-value { margin-top: 8px; min-height: 1.5em; }
+.roof-method .planner-section-copy { max-width: 80ch; }
+
+@media (max-width: 850px) {
+  .roof-explorer { grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "map" "settings" "potential" "season" "method"; }
+}
+@media (max-width: 490px) {
+  .roof-search { grid-template-columns: 1fr; }
+  .roof-search input { font-size: 16px; }
+  .roof-search .btn-ink { justify-content: space-between; }
+  .roof-map { height: 360px; }
+  .roof-season-head label { width: 100%; }
+  .roof-chart button { font-size: 10px; }
+}
+@media print {
+  .roof-search, .roof-map-meta, .roof-map-toolbar, .roof-coordinates { display: none; }
+  .roof-season { break-inside: avoid; }
+  .roof-chart-bar { print-color-adjust: exact; }
+  .planner-page .roof-chart button { display: grid; }
+  .roof-chart-value { display: none; }
+}

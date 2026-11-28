@@ -78,25 +78,6 @@
   window.addEventListener("hashchange", restoreTool);
   restoreTool();
 
-  const roofInputs = $("roof-inputs");
-  function updateRoof() {
-    const fields = Object.fromEntries([...roofInputs.querySelectorAll("input, select")].map(field => [field.name, number(field)]));
-    const area = fields.length * fields.width;
-    const usableArea = area * fields.usable / 100;
-    const panels = Math.floor(usableArea / moduleArea[fields.module]);
-    const capacity = panels * fields.module / 1000;
-    const daily = capacity * fields.sun * fields.efficiency / 100;
-    $("roof-area").textContent = `${format.format(area)} m²`;
-    $("roof-usable").textContent = `${format.format(usableArea)} m²`;
-    $("roof-panels").textContent = format.format(panels);
-    $("roof-capacity").textContent = `${format.format(capacity)} kWp`;
-    $("roof-daily").textContent = format.format(daily);
-    $("roof-monthly").textContent = `${format.format(daily * 30)} kWh`;
-  }
-
-  roofInputs.addEventListener("input", updateRoof);
-  updateRoof();
-
   function readRow(row) {
     const get = name => row.querySelector(`[name="${name}"]`);
     return {

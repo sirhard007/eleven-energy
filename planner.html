@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Energy Tools · Eleven Energy</title>
-  <meta name="description" content="Estimate your electricity use and plan solar and backup power with Eleven Energy.">
+  <meta name="description" content="Plan your electricity use and backup power, or explore your roof’s solar potential with Eleven Energy.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="planner.css?v=10">
+  <link rel="stylesheet" href="planner.css?v=17">
 </head>
 <body class="sub">
 
@@ -83,14 +83,14 @@
           <p class="tag reveal" style="--d:0"><span class="tag-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Energy tools</p>
           <h1 class="ph-title words" id="planner-title">Find out what it takes to power your space.</h1>
         </div>
-        <p class="ph-lede reveal" style="--d:3">Estimate the solar and backup power your home or business needs.</p>
+        <p class="ph-lede reveal" style="--d:3">Estimate the power your space needs and see how much solar your roof could support.</p>
       </div>
     </section>
     <div class="page planner-page">
       <div class="wrap">
         <div class="energy-tabs" role="tablist" aria-label="Energy tools">
           <button type="button" role="tab" id="planner-tab" aria-controls="planner" aria-selected="true">Energy Planner</button>
-          <button type="button" role="tab" id="roof-tab" aria-controls="roof-explorer" aria-selected="false" tabindex="-1" hidden>Roof Explorer</button>
+          <button type="button" role="tab" id="roof-tab" aria-controls="roof-explorer" aria-selected="false" tabindex="-1">Roof Explorer</button>
         </div>
       </div>
       <div class="wrap planner-workbench" id="planner" role="tabpanel" aria-labelledby="planner-tab">
@@ -191,46 +191,110 @@
           </div>
         </aside>
       </div>
-      <div class="wrap planner-workbench" id="roof-explorer" role="tabpanel" aria-labelledby="roof-tab" hidden>
-        <div class="planner-steps">
-          <section aria-labelledby="roof-title">
-            <p class="purpose-eyebrow"><span class="about-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Roof measurements</p>
-            <h2 class="ab-statement" id="roof-title">How much solar could your roof support?</h2>
-            <p class="planner-section-copy">Enter the measurements of one roof section. Allow space around edges and subtract shaded areas or obstructions.</p>
-            <div id="roof-inputs">
-              <div class="planner-fields">
-                <label>Roof length (m)<input type="number" name="length" min="0" max="10000" step="any" placeholder="e.g. 10" inputmode="decimal"></label>
-                <label>Roof width (m)<input type="number" name="width" min="0" max="10000" step="any" placeholder="e.g. 8" inputmode="decimal"></label>
-                <label>Usable roof area (%)<input type="number" name="usable" min="0" max="100" step="any" value="70"></label>
-                <label>Solar module<select name="module"><option value="400">400 W · 2.0 m²</option><option value="550" selected>550 W · 2.6 m²</option><option value="650">650 W · 3.1 m²</option></select></label>
-              </div>
-              <details class="planner-method">
-                <summary>Solar production assumptions</summary>
-                <div class="planner-fields">
-                  <label>Peak sun hours / day<input type="number" name="sun" min="0.1" max="24" step="any" value="4.5"></label>
-                  <label>Overall solar efficiency (%)<input type="number" name="efficiency" min="1" max="100" step="any" value="80"></label>
-                </div>
-              </details>
+      <div class="wrap planner-workbench roof-explorer" id="roof-explorer" role="tabpanel" aria-labelledby="roof-tab" hidden>
+        <header class="roof-intro">
+          <h2 class="ab-statement">Find your place in the sun.</h2>
+          <p class="planner-section-copy">Find your property and trace a roof face to estimate its solar potential across the year.</p>
+        </header>
+
+        <section class="roof-map-section" aria-labelledby="roof-map-title">
+          <h3 id="roof-map-title" class="visually-hidden">Find and trace your roof</h3>
+          <form class="roof-search" id="roof-search">
+            <div class="roof-search-field">
+              <label><span class="visually-hidden">Property address or coordinates</span><input id="roof-query" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="roof-suggestions" autocomplete="off" placeholder="Address, place or latitude, longitude" required></label>
+              <ul class="roof-suggestions" id="roof-suggestions" role="listbox" aria-label="Suggested locations" hidden></ul>
+              <span id="roof-suggestion-status" class="visually-hidden" role="status"></span>
             </div>
-          </section>
-        </div>
-        <aside class="planner-estimate" aria-labelledby="roof-estimate-title">
+            <button class="btn-ink" type="submit">Find property<span class="btn-ink-dot"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+          </form>
+          <div class="roof-map-meta">
+            <p id="roof-location" role="status">Lagos, Nigeria</p>
+            <button class="planner-text-button" id="roof-geolocate" type="button">Use my location</button>
+          </div>
+          <div class="roof-map-wrap">
+            <div class="roof-map" id="roof-map" role="region" aria-label="Property map. Exact coordinates can also be entered below."></div>
+            <p class="roof-map-status" id="roof-map-status" role="status">Loading map…</p>
+          </div>
+          <div class="roof-map-toolbar">
+            <div class="roof-map-actions">
+              <button class="btn-line" id="roof-draw" type="button" disabled>Draw roof</button>
+              <button class="btn-line" id="roof-finish" type="button" disabled>Finish outline</button>
+              <button class="planner-text-button" id="roof-undo" type="button" disabled>Undo point</button>
+              <button class="planner-text-button" id="roof-reset" type="button" disabled>Reset roof</button>
+            </div>
+            <div class="roof-map-switch" role="group" aria-label="Map view">
+              <button type="button" data-roof-layer="satellite" aria-pressed="true" disabled>Satellite</button>
+              <button type="button" data-roof-layer="street" aria-pressed="false" disabled>Street map</button>
+            </div>
+          </div>
+          <p class="planner-help" id="roof-imagery-detail" role="status" hidden>This area is at the highest available satellite detail. You can also enter exact roof coordinates below.</p>
+          <p class="planner-help" id="roof-draw-status" role="status">Zoom in until your roof is visible. Trace one roof face using at least three corners.</p>
+          <details class="planner-method roof-coordinates">
+            <summary>Enter exact roof coordinates</summary>
+            <label for="roof-vertices">Enter one latitude, longitude pair per line for each roof corner.</label>
+            <textarea id="roof-vertices" rows="5" spellcheck="false" placeholder="6.52440, 3.37920"></textarea>
+            <button class="btn-line" id="roof-apply-coordinates" type="button">Use these corners</button>
+          </details>
+        </section>
+
+        <section class="roof-settings" aria-labelledby="roof-settings-title">
+          <h3 class="sx-name" id="roof-settings-title">Your roof, in detail.</h3>
+          <p class="planner-help">Adjust the usable area and system assumptions.</p>
+          <p class="roof-footprint"><output id="roof-area">—</output> <span>traced roof footprint</span></p>
+          <div id="roof-inputs">
+            <label class="roof-area-slider">Usable footprint <output id="roof-usable-percent">65%</output>
+              <input type="range" name="usable" min="0" max="100" value="65">
+            </label>
+            <p class="planner-help">Allow for access, setbacks, and roof obstructions.</p>
+            <div class="planner-fields">
+              <label>Solar module<select name="module"><option value="400">400 W · 2.0 m²</option><option value="550" selected>550 W · 2.6 m²</option><option value="650">650 W · 3.1 m²</option></select></label>
+              <label>Shading loss<select name="shade"><option value="0">None · 0%</option><option value="10" selected>Light · 10%</option><option value="25">Moderate · 25%</option><option value="40">Heavy · 40%</option></select></label>
+              <label>Other generation losses (%)<input type="number" name="loss" min="0" max="100" step="any" value="20"></label>
+            </div>
+          </div>
+          <button class="btn-ink" id="roof-analyze" type="button" disabled>Analyze solar potential<span class="btn-ink-dot"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+          <p class="planner-help" id="roof-analysis-status" role="status">Trace a roof to begin.</p>
+        </section>
+
+        <aside class="planner-estimate roof-potential" aria-labelledby="roof-estimate-title">
           <div class="planner-estimate-head">
-            <h2 class="sx-name" id="roof-estimate-title">Your roof estimate</h2>
-            <p class="planner-live" aria-live="polite"><output id="roof-daily">0</output> <span>kWh / day</span></p>
+            <h3 class="sx-name" id="roof-estimate-title">Your roof’s potential</h3>
+            <p class="planner-live" aria-live="polite"><output id="roof-annual">—</output> <span>kWh / year</span></p>
           </div>
           <div class="planner-blueprint">
             <dl class="ab-facts">
-              <div><dt>Total roof area</dt><dd id="roof-area">0 m²</dd></div>
-              <div><dt>Usable area</dt><dd id="roof-usable">0 m²</dd></div>
-              <div><dt>Estimated panel count</dt><dd id="roof-panels">0</dd></div>
-              <div><dt>Solar capacity</dt><dd id="roof-capacity">0 kWp</dd></div>
-              <div><dt>Monthly generation</dt><dd id="roof-monthly">0 kWh</dd></div>
+              <div><dt>Solar capacity</dt><dd id="roof-capacity">—</dd></div>
+              <div><dt>Estimated panel count</dt><dd id="roof-panels">—</dd></div>
+              <div><dt>Usable footprint</dt><dd id="roof-usable">—</dd></div>
+              <div><dt>Mean daily sunlight</dt><dd id="roof-sunlight">—</dd></div>
             </dl>
           </div>
-          <p class="planner-help">Panel count is based on usable area. An engineer should verify panel layout, shading, orientation, and roof condition on site.</p>
-          <button class="btn-ink" type="button" data-open-modal="audit">Book an energy audit<span class="btn-ink-dot"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+          <div class="planner-actions">
+            <button class="btn-ink" type="button" data-open-modal="audit">Discuss this roof<span class="btn-ink-dot"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+            <button class="btn-line" id="roof-print" type="button" disabled>Print or save as PDF</button>
+          </div>
         </aside>
+
+        <section class="roof-season" aria-labelledby="roof-season-title">
+          <div class="roof-season-head">
+            <h3 class="sx-name" id="roof-season-title">Seasonal solar potential</h3>
+            <label><span class="visually-hidden">Chart measurement</span>
+              <select id="roof-chart-mode">
+                <option value="generation">Generation · kWh/month</option>
+                <option value="sunlight">Sunlight · kWh/m²/day</option>
+              </select>
+            </label>
+          </div>
+          <p class="planner-help" id="roof-chart-empty">Trace your roof and run the analysis to see monthly sunlight and generation.</p>
+          <ol class="roof-chart" id="roof-chart" aria-label="Monthly solar potential" hidden></ol>
+          <p class="planner-help roof-chart-value" id="roof-chart-value" role="status" hidden></p>
+          <p class="planner-help">Monthly sunlight climatology is provided by NASA POWER. Generation is an estimate based on the selected module and losses.</p>
+        </section>
+
+        <details class="planner-method roof-method">
+          <summary>What Roof Explorer measures and what an engineer will verify</summary>
+          <p class="planner-section-copy">The outline measures horizontal footprint from the traced corners. Panel count is based on usable area rather than a physical module layout. Seasonal generation uses regional sunlight data and your loss settings. An engineer will verify roof slope, orientation, structure, shading, and the actual panel layout.</p>
+        </details>
       </div>
     </div>
   </main>
@@ -345,6 +409,7 @@
   </div>
 
   <script src="script.js"></script>
-  <script src="planner.js?v=8"></script>
+  <script src="planner.js?v=9"></script>
+  <script src="roof-explorer.js?v=5"></script>
 </body>
 </html>
