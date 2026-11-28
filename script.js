@@ -407,36 +407,50 @@
         the strip can be dragged, and each photo drifts a little against the movement ── */
   const fsTrack = $(".fs-track");
   if (fsTrack) {
-    const slides = $$(".fs-slide", fsTrack), steps = $$(".fs-step"), cursor = $(".fs-cursor", fsTrack);
+    const rail = $(".fs-rail", fsTrack);
+    const slides = $$(".fs-slide", fsTrack), steps = $$(".fs-step", fsTrack.closest("section")), cursor = $(".fs-cursor", fsTrack);
     const phone = window.matchMedia("(max-width: 760px)");
     let cur = 0;
 
-    const edge = () => parseFloat(getComputedStyle($(".fs-rail", fsTrack)).paddingLeft) || 0;
-    function scrollToSlide(i, smooth) {
+    const edge = () => parseFloat(getComputedStyle(rail).paddingLeft) || 0;
+    const syncSteps = () => {
+      steps[0].disabled = cur === 0;
+      steps[1].disabled = cur === slides.length - 1;
+    };
+    function scrollToSlide(i, closedWidth) {
       // where the slide will sit once the open one has finished resizing: every slide before it is closed
-      const gap = 14;
+      const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
       let left = 0;
       if (phone.matches) left = slides[i].offsetLeft - edge();
-      else left = i * (parseFloat(getComputedStyle(slides[i === 0 ? 1 : 0]).width) + gap);
-      fsTrack.scrollTo({ left: Math.max(0, left), behavior: smooth && !still ? "smooth" : "auto" });
+      else left = i * (closedWidth + gap);
+      fsTrack.scrollTo({ left: Math.max(0, left), behavior: still ? "auto" : "smooth" });
     }
     function show(i) {
-      cur = Math.max(0, Math.min(slides.length - 1, i));
+      const next = Math.max(0, Math.min(slides.length - 1, i));
+      const closed = slides.find((slide, index) => index !== cur && index !== next);
+      const closedWidth = closed.getBoundingClientRect().width;
+      cur = next;
       slides.forEach((s, k) => s.classList.toggle("is-active", k === cur));
-      steps[0].disabled = cur === 0; steps[1].disabled = cur === slides.length - 1;
-      scrollToSlide(cur, true);
+      syncSteps();
+      scrollToSlide(cur, closedWidth);
     }
-    steps.forEach(b => b.addEventListener("click", () => show(cur + +b.dataset.step, true)));
-    $$("[data-fs-open]", fsTrack).forEach(b => b.addEventListener("click", () => show(+b.dataset.fsOpen, true)));
+    steps.forEach(b => b.addEventListener("click", () => show(cur + +b.dataset.step)));
+    $$("[data-fs-open]", fsTrack).forEach(b => b.addEventListener("click", event => {
+      const index = Number(b.dataset.fsOpen);
+      show(index);
+      if (event.detail === 0) {
+        $(".fs-cta", slides[index]).focus({ preventScroll: true });
+      }
+    }));
     fsTrack.addEventListener("keydown", e => {
       const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-      if (d) { e.preventDefault(); show(cur + d, true); }
+      if (d) { e.preventDefault(); show(cur + d); }
     });
 
     // drag to scroll with the mouse; phones already swipe natively
     let down = null, moved = 0;
     fsTrack.addEventListener("pointerdown", e => {
-      if (e.pointerType !== "mouse" || e.button !== 0 || e.target.closest("button:not(.fs-open)")) return;
+      if (e.pointerType !== "mouse" || e.button !== 0 || e.target.closest("a, button:not(.fs-open)")) return;
       down = { x: e.clientX, left: fsTrack.scrollLeft }; moved = 0;
     });
     window.addEventListener("pointermove", e => {
@@ -453,9 +467,10 @@
         let best = 0, bestD = Infinity;
         slides.forEach((s, k) => { const dd = Math.abs(s.offsetLeft - edge() - x); if (dd < bestD) { bestD = dd; best = k; } });
         requestAnimationFrame(() => fsTrack.classList.remove("is-dragging"));
-        show(best, true);
+        show(best);
       }
     });
+    fsTrack.addEventListener("dragstart", e => e.preventDefault());
     fsTrack.addEventListener("click", e => { if (moved > 4) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
 
     // the cursor bubble
@@ -465,7 +480,7 @@
         cursor.style.setProperty("--cx", e.clientX - r.left + fsTrack.scrollLeft + "px");
         cursor.style.setProperty("--cy", e.clientY - r.top + "px");
         fsTrack.classList.add("show-cursor");
-        fsTrack.classList.toggle("over-button", !!e.target.closest("button:not(.fs-open)"));
+        fsTrack.classList.toggle("over-button", !!e.target.closest("a, button:not(.fs-open)"));
       });
       fsTrack.addEventListener("pointerleave", () => fsTrack.classList.remove("show-cursor"));
     }
@@ -491,10 +506,14 @@
       const x = fsTrack.scrollLeft;
       let best = 0, bestD = Infinity;
       slides.forEach((s, k) => { const dd = Math.abs(s.offsetLeft - edge() - x); if (dd < bestD) { bestD = dd; best = k; } });
-      if (best !== cur) { cur = best; slides.forEach((s, k) => s.classList.toggle("is-active", k === cur)); }
+      if (best !== cur) {
+        cur = best;
+        slides.forEach((s, k) => s.classList.toggle("is-active", k === cur));
+        syncSteps();
+      }
     }, { passive: true });
 
-    steps[0].disabled = true;
+    syncSteps();
   }
 
   /* ── Get in touch: a form written as a sentence; the topic rewrites the middle of it ── */

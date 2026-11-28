@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=sectors">
 </head>
 <body class="sub">
 
@@ -131,15 +131,76 @@
       </div>
     </section>
 
-    <section class="ab-sectors" aria-labelledby="abSectorsTitle">
-      <div class="wrap">
-        <div class="ab-sectors-head">
+    <section class="sol ab-sectors" aria-labelledby="abSectorsTitle">
+      <div class="wrap ab-sectors-head">
+        <div>
           <h2 id="abSectorsTitle" class="words">Where our work goes.</h2>
           <p class="rise">The same engineers design for a single rooftop and a whole industrial site.</p>
         </div>
+        <div class="fs-arrows">
+          <button class="fs-step" type="button" data-step="-1" aria-label="Previous sector" aria-controls="abSectorTrack" disabled><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button class="fs-step" type="button" data-step="1" aria-label="Next sector" aria-controls="abSectorTrack"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
       </div>
-      <div class="ab-sector-row">
-        <a class="ab-sector rise" style="--d:0" href="solutions.html#storage"><span class="ab-sector-img"><img src="assets/sol-storage.jpg" alt="Battery cabinets beside a cold-storage warehouse in Lagos" style="object-position:60% 50%" loading="lazy"></span><span class="ab-sector-txt"><b>Manufacturing and agriculture</b><small>Factories, farms and cold stores</small></span><span class="ab-sector-go" aria-hidden="true"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a><a class="ab-sector rise" style="--d:1" href="solutions.html#microgrids"><span class="ab-sector-img"><img src="assets/sol-microgrids.jpg" alt="A rural clinic in northern Nigeria with a solar microgrid" style="object-position:62% 50%" loading="lazy"></span><span class="ab-sector-txt"><b>Public services</b><small>Clinics, schools and community centres</small></span><span class="ab-sector-go" aria-hidden="true"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a><a class="ab-sector rise" style="--d:2" href="solutions.html#sme"><span class="ab-sector-img"><img src="assets/sol-sme.jpg" alt="A pharmacy in Ibadan running on rooftop solar" style="object-position:62% 50%" loading="lazy"></span><span class="ab-sector-txt"><b>Small businesses</b><small>Shops, pharmacies and workshops</small></span><span class="ab-sector-go" aria-hidden="true"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a><a class="ab-sector rise" style="--d:3" href="solutions.html#home"><span class="ab-sector-img"><img src="assets/sol-home.jpg" alt="A family home in Lekki with rooftop solar at dusk" style="object-position:50% 50%" loading="lazy"></span><span class="ab-sector-txt"><b>Homes and estates</b><small>From one roof to a whole estate</small></span><span class="ab-sector-go" aria-hidden="true"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a><a class="ab-sector rise" style="--d:4" href="solutions.html#ev"><span class="ab-sector-img"><img src="assets/sol-ev.jpg" alt="An electric car charging under a solar carport in Abuja" style="object-position:55% 50%" loading="lazy"></span><span class="ab-sector-txt"><b>Commercial hubs</b><small>Offices, malls and car parks</small></span><span class="ab-sector-go" aria-hidden="true"><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <div class="fs-track" id="abSectorTrack" tabindex="0" aria-label="Sectors, drag or use the arrows">
+        <div class="fs-rail">
+          <article class="fs-slide is-active" aria-roledescription="slide" aria-label="1 of 5: Manufacturing and agriculture">
+            <div class="fs-media"><img src="assets/sol-storage.jpg" alt="Battery cabinets beside a cold-storage warehouse in Lagos" style="object-position:60% 50%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="0" aria-label="Show Manufacturing and agriculture"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Manufacturing and agriculture</h3>
+                <div class="fs-more"><p class="fs-line">Factories, farms and cold stores</p></div>
+              </div>
+              <a class="fs-cta" href="solutions.html#storage">Explore solution<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            </div>
+          </article>
+          <article class="fs-slide" aria-roledescription="slide" aria-label="2 of 5: Public services">
+            <div class="fs-media"><img src="assets/sol-microgrids.jpg" alt="A rural clinic in northern Nigeria with a solar microgrid" style="object-position:62% 50%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="1" aria-label="Show Public services"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Public services</h3>
+                <div class="fs-more"><p class="fs-line">Clinics, schools and community centres</p></div>
+              </div>
+              <a class="fs-cta" href="solutions.html#microgrids">Explore solution<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            </div>
+          </article>
+          <article class="fs-slide" aria-roledescription="slide" aria-label="3 of 5: Small businesses">
+            <div class="fs-media"><img src="assets/sol-sme.jpg" alt="A pharmacy in Ibadan running on rooftop solar" style="object-position:62% 50%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="2" aria-label="Show Small businesses"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Small businesses</h3>
+                <div class="fs-more"><p class="fs-line">Shops, pharmacies and workshops</p></div>
+              </div>
+              <a class="fs-cta" href="solutions.html#sme">Explore solution<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            </div>
+          </article>
+          <article class="fs-slide" aria-roledescription="slide" aria-label="4 of 5: Homes and estates">
+            <div class="fs-media"><img src="assets/sol-home.jpg" alt="A family home in Lekki with rooftop solar at dusk" style="object-position:50% 50%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="3" aria-label="Show Homes and estates"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Homes and estates</h3>
+                <div class="fs-more"><p class="fs-line">From one roof to a whole estate</p></div>
+              </div>
+              <a class="fs-cta" href="solutions.html#home">Explore solution<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            </div>
+          </article>
+          <article class="fs-slide" aria-roledescription="slide" aria-label="5 of 5: Commercial hubs">
+            <div class="fs-media"><img src="assets/sol-ev.jpg" alt="An electric car charging under a solar carport in Abuja" style="object-position:55% 50%" loading="lazy"></div>
+            <button class="fs-open" type="button" data-fs-open="4" aria-label="Show Commercial hubs"></button>
+            <div class="fs-copy">
+              <div class="fs-text">
+                <h3>Commercial hubs</h3>
+                <div class="fs-more"><p class="fs-line">Offices, malls and car parks</p></div>
+              </div>
+              <a class="fs-cta" href="solutions.html#ev">Explore solution<span><svg class="ico ico-16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            </div>
+          </article>
+        </div>
+        <div class="fs-cursor" aria-hidden="true">Drag</div>
       </div>
     </section>
 
@@ -280,6 +341,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=sectors"></script>
 </body>
 </html>
